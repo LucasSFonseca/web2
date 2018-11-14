@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,8 +19,11 @@ import javax.persistence.OneToMany;
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private Integer id;
 	
-	@Id
 	@Column(name="ISBN")
 	private Integer ISBN;
 	
@@ -54,6 +59,14 @@ public class Book implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user; 
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getISBN() {
 		return ISBN;
 	}
