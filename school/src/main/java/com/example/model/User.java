@@ -41,11 +41,11 @@ public class User implements Serializable{
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	private List<Book> usuarioQuer;
 
-	public Integer getUserId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setUserId(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
