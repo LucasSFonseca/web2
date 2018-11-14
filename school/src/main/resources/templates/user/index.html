@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+ 	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Lista de Usuários</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h1>Lista de Usuários</h1>
+		<hr />
+		<a th:href="@{/users/new}" class="btn btn-success">Novo Usuários</a><br/><br/>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nome</th> 
+					<th>Login</th> 
+					<th>Senha</th> 
+					<th>Email</th> 
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${listUsers}">
+					<td th:text="${user.nome}"></td> 
+					<td th:text="${user.login}"></td> 
+					<td th:text="${user.password}"></td> 
+					<td th:text="${user.email}"></td> 
+					<td>
+							<a th:href="@{/users/{id}(id = ${user.id})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/users/{id}/edit(id = ${user.id})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'users/'+ user.id+'/delete'}" class="btn btn-danger">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
