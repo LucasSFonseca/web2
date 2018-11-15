@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,11 +38,13 @@ public class User implements Serializable{
 	@Column(name="password")
 	private String password;
 
-	@OneToOne(mappedBy = "user")
-	private Collection usuarioTem; 
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	private List<Collection> usuarioTem; 
 
-	@OneToOne(mappedBy = "user")
-	private WishList usuarioQuer; 
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	private List<WishList> usuarioQuer; 
 	
 //	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 //	private List<Book> usuarioTem;
