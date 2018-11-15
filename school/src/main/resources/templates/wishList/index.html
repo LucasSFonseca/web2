@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+ 	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Lista de Desejos</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h1>Lista de Desejos</h1>
+		<hr />
+		<a th:href="@{/wishLists/new}" class="btn btn-success">Novo Desejo</a><br/><br/>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID Desejo</th> 
+					<th>ID Usuario</th> 
+					<th>ID Livro</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="wishList : ${listWishList}">
+					<td th:text="${wishList.id}"></td> 
+					<td th:text="${wishList.user.id}"></td> 
+					<td th:text="${wishList.book.id}"></td> 
+					<td>
+							<a th:href="@{/wishLists/{id}(id = ${wishList.id})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/wishLists/{id}/edit(id = ${wishList.id})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'wishLists/'+ wishList.id+'/delete'}" class="btn btn-danger">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

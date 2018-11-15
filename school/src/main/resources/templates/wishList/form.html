@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Novo Desejo</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 th:if="${wishList.id == null}">Novo Desejo</h1>
+		<h1 th:if="${wishList.id != null}">Editar Desejo</h1>
+		<hr />
+		<form th:action="@{/wishLists}" th:method="@{${wishList.id == null} ? 'post' : 'put'}"
+			th:object="${wishList}">
+			<input type="hidden" th:field="*{id}" /> 
+			
+			 <div class="form-group" th:object="${user}">
+				 <select name="user.id" class="form-control">
+					 <option value="">Selecione o Usuario</option>
+			 		 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+				</select>	
+			 </div>
+			 
+			 <div class="form-group" th:object="${book}">
+				 <select name="book.id" class="form-control">
+					 <option value="">Selecione o Livro</option>
+			 		 <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.titulo}"></option>
+				</select>	
+			 </div>
+
+			<button type="submit" class="btn btn-success">Salvar</button>
+			<a th:href="@{/wishLists}" class="btn btn-default">Voltar</a>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Exibir Usuário</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Mostrar Usuários</h1>
+		<hr />
+		<div class="form-group"> 
+			<label for="nome">Nome: </label>  
+			<span th:text="${user.nome}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="login">Login: </label>  
+			<span th:text="${user.login}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="password">Senha: </label>  
+			<span th:text="${user.password}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="emails">Email: </label>  
+			<span th:text="${user.email}"></span> 
+		</div> 
+		
+		<!--
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th> 
+					<th>Email</th> 
+					<th>Registration</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="student : ${module.students}">
+					<td th:text="${student.name}"></td> 
+					<td th:text="${student.email}"></td>
+					<td th:text="${student.registration}"></td>  
+				</tr>
+			</tbody>
+		</table>
+		-->
+		
+		
+		<a th:href="@{/users}" class="btn btn-primary">Voltar para a Lista de Usuários</a>
+		<a th:href="@{/users/{id}/edit(id = ${user.id})}" class="btn btn-info">Editar Usuário</a>
+		<a th:href="${user.id +'/delete'}" class="btn btn-danger">Deletar Usuário</a>
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Mostrar Coleções</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Mostrar Coleções</h1>
+		<hr />
+		<div class="form-group"> 
+			<label for="id">ID Registro: </label>  
+			<span th:text="${collection.id}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="user_id">ID Usuario: </label>  
+			<span th:text="${collection.user.id}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="book_id">ID Livro: </label>  
+			<span th:text="${collection.book.id}"></span> 
+		</div> 
+		
+		<!--
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th> 
+					<th>Email</th> 
+					<th>Registration</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="student : ${module.students}">
+					<td th:text="${student.name}"></td> 
+					<td th:text="${student.email}"></td>
+					<td th:text="${student.registration}"></td>  
+				</tr>
+			</tbody>
+		</table>
+		-->
+		
+		
+		<a th:href="@{/collections}" class="btn btn-primary">Voltar para a Lista de Livros</a>
+		<a th:href="@{/collections/{id}/edit(id = ${collection.id})}" class="btn btn-info">Editar collection</a>
+		<a th:href="${collection.id +'/delete'}" class="btn btn-danger">Excluir collection</a>
+		
+	</div>
+</body>
+</html>
