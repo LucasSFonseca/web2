@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "collections")
 public class Collection implements Serializable  {
 
+	// Teste
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
