@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -34,12 +36,18 @@ public class User implements Serializable{
 	
 	@Column(name="password")
 	private String password;
+
+	@OneToOne(mappedBy = "user")
+	private Collection usuarioTem; 
+
+	@OneToOne(mappedBy = "user")
+	private WishList usuarioQuer; 
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private List<Book> usuarioTem;
+//	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+//	private List<Book> usuarioTem;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private List<Book> usuarioQuer;
+//	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+//	private List<Book> usuarioQuer;
 
 	public Integer getId() {
 		return id;
@@ -81,7 +89,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public List<Book> getUsuarioTem() {
+	/*public List<Book> getUsuarioTem() {
 		return usuarioTem;
 	}
 
@@ -95,7 +103,7 @@ public class User implements Serializable{
 
 	public void setUsuarioQuer(List<Book> usuarioQuer) {
 		this.usuarioQuer = usuarioQuer;
-	}
+	}*/
 	
 	//@Column(name="")
 

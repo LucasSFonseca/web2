@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = "book")
@@ -23,6 +24,12 @@ public class Book implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private Integer id;
+
+	@OneToOne(mappedBy = "book")
+	private Collection usuarioTem; 
+
+	@OneToOne(mappedBy = "book")
+	private WishList usuarioQuer; 
 	
 	@Column(name="ISBN")
 	private Integer ISBN;
@@ -55,9 +62,9 @@ public class Book implements Serializable {
 //	@JoinColumn(name="authorId")
 //	private Integer authorId;	
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user; 
+//	@ManyToOne
+//	@JoinColumn(name="id")
+//	private User user; 
 	
 	public Integer getId() {
 		return id;
@@ -71,8 +78,8 @@ public class Book implements Serializable {
 		return ISBN;
 	}
 
-	public void setISBN(Integer iSBN) {
-		ISBN = iSBN;
+	public void setISBN(Integer ISBN) {
+		ISBN = ISBN;
 	}
 
 	public Integer getNumeroPaginas() {
