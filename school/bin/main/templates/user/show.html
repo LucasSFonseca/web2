@@ -31,24 +31,41 @@
 			<span th:text="${user.email}"></span> 
 		</div> 
 		
-		<!--
+		<h1>Livros do Usuário</h1>
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Name</th> 
-					<th>Email</th> 
-					<th>Registration</th>
+					<th>ISBN</th> 
+					<th>Titulo</th> 
+					<th>Autor</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="student : ${module.students}">
-					<td th:text="${student.name}"></td> 
-					<td th:text="${student.email}"></td>
-					<td th:text="${student.registration}"></td>  
+				<tr th:each="collection : ${user.usuarioTem}">
+					<td th:text="${collection.book.ISBN}"></td> 
+					<td th:text="${collection.book.titulo}"></td>
+					<td th:text="${collection.book.autor}"></td>  
 				</tr>
 			</tbody>
 		</table>
-		-->
+		
+		<h1>Livros Desejados pelo Usuário</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ISBN</th> 
+					<th>Titulo</th> 
+					<th>Autor</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="collection : ${user.usuarioQuer}">
+					<td th:text="${collection.book.ISBN}"></td> 
+					<td th:text="${collection.book.titulo}"></td>
+					<td th:text="${collection.book.autor}"></td>  
+				</tr>
+			</tbody>
+		</table>
 		
 		
 		<a th:href="@{/users}" class="btn btn-primary">Voltar para a Lista de Usuários</a>
