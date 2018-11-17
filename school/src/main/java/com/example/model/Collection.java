@@ -11,6 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "Collection")
 @Table(name = "collection")
@@ -31,7 +35,9 @@ public class Collection implements Serializable  {
     private Book book;
  
     @Column(name = "added_on")
-    private Date addedOn = new Date();
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date addedOn;
  
     @SuppressWarnings("unused")
 	private Collection() {}

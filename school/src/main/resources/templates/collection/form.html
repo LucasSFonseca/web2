@@ -19,17 +19,24 @@
 			th:object="${collection}">
 			<input type="hidden" th:field="*{id}" />
 			
-			 <div class="form-group" th:field="${user}">
+			<div class="form-group"> 
+        	<label class="control-label" for="addedOn">Date</label>
+      	 	<input class="form-control" id="addedOn" name="addedOn" placeholder="dd/MM/yyyy" type="text" th:field="*{addedOn}"/>
+      		</div>
+			 
+			 <div class="form-group" th:object="${user}">
 				 <select name="user" class="form-control">
-					 <option value="">Selecione o Usuario</option>
-			 		 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+					 <option value="" th:disabled="disabled">Selecione o Usuario</option>
+			 		 <option th:if="${collection.id == null}" th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+			 		 <option th:if="${collection.id != null}" th:value="${users.id}" th:text="${users.nome}" selected="selected" ></option>
 				</select>	
 			 </div>
 			 
-			 <div class="form-group" th:field="${book}">
+			 <div class="form-group" th:object="${book}">
 				 <select name="book" class="form-control">
-					 <option value="">Selecione o Livro</option>
-			 		 <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.titulo}"></option>
+					 <option value="" th:disabled="disabled">Selecione o Livro</option>
+			 		 <option th:if="${collection.id == null}" th:each="book : ${books}" th:value="${book.id}" th:text="${book.titulo}"></option>
+			 		 <option th:if="${collection.id != null}" th:value="${books.id}" th:text="${books.titulo}" selected="selected"></option>
 				</select>	
 			 </div>
 

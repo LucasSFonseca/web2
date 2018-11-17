@@ -38,6 +38,7 @@
 					<th>ISBN</th> 
 					<th>Titulo</th> 
 					<th>Autor</th>
+					<th>Data de Adição</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,6 +46,7 @@
 					<td th:text="${collection.book.ISBN}"></td> 
 					<td th:text="${collection.book.titulo}"></td>
 					<td th:text="${collection.book.autor}"></td>  
+					<td th:text="${collection.addedOn}"></td>  
 				</tr>
 			</tbody>
 		</table>
@@ -56,6 +58,7 @@
 					<th>ISBN</th> 
 					<th>Titulo</th> 
 					<th>Autor</th>
+					<th>Data de Adição</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,6 +66,7 @@
 					<td th:text="${collection.book.ISBN}"></td> 
 					<td th:text="${collection.book.titulo}"></td>
 					<td th:text="${collection.book.autor}"></td>  
+					<td th:text="${collection.addedOn}"></td>  
 				</tr>
 			</tbody>
 		</table>

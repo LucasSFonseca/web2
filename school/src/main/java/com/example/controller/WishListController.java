@@ -99,10 +99,10 @@ public class WishListController {
 			{
 				UserBookId id = new UserBookId(userId, bookId);
 
-				List<User> allUsers = userService.findAll();
-				model.addAttribute("users", allUsers);
-				List<Book> allBooks = bookService.findAll();
-				model.addAttribute("books", allBooks);	
+				User entityUser = userService.findOne(userId).get();
+				model.addAttribute("users", entityUser);
+				Book entityBook = bookService.findOne(bookId).get();
+				model.addAttribute("books", entityBook);	
 				
 				WishList entity = wishListService.findOne(id).get();
 				model.addAttribute("wishList", entity);

@@ -101,13 +101,20 @@ public class CollectionController {
 			{
 				UserBookId id = new UserBookId(userId, bookId);
 				
-				List<User> allUsers = userService.findAll();
-				model.addAttribute("users", allUsers);
-				List<Book> allBooks = bookService.findAll();
-				model.addAttribute("books", allBooks);	
+				//model.addAttribute("collection", entityCollection);
+				User entityUser = userService.findOne(userId).get();
+				model.addAttribute("users", entityUser);
+			    Book entityBook = bookService.findOne(bookId).get();
+				model.addAttribute("books", entityBook);		
 				
 				Collection entity = collectionService.findOne(id).get();
 				model.addAttribute("collection", entity);
+
+				System.out.println("Collection User: " + entity.getUser() );
+				System.out.println("Collection Book: " + entity.getBook() );
+				System.out.println("Collection Id: " + entity.getId() );
+				System.out.println("Collection UserId: " + entity.getId().getUserId());
+				System.out.println("Collection BookId: " + entity.getId().getBookId());
 			}
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
