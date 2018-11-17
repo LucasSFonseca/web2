@@ -20,14 +20,14 @@
 			<input type="hidden" th:field="*{id}" /> 
 			
 			 <div class="form-group" th:object="${user}">
-				 <select name="user.id" class="form-control">
+				 <select name="user" class="form-control">
 					 <option value="">Selecione o Usuario</option>
 			 		 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
 				</select>	
 			 </div>
 			 
 			 <div class="form-group" th:object="${book}">
-				 <select name="book.id" class="form-control">
+				 <select name="book" class="form-control">
 					 <option value="">Selecione o Livro</option>
 			 		 <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.titulo}"></option>
 				</select>	

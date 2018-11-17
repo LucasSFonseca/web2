@@ -3,6 +3,7 @@ package com.example.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.model.Collection;
+import com.example.model.UserBookId;
 import com.example.repository.CollectionRepository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CollectionService {
 		return collectionRepository.findAll();
 	}
 
-	public Optional<Collection> findOne(Integer id) {
+	public Optional<Collection> findOne(UserBookId id) {
 		return collectionRepository.findById(id);
 	}
 	

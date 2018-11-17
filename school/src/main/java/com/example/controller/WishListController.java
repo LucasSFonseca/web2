@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.model.Book;
 import com.example.model.User;
+import com.example.model.UserBookId;
 import com.example.model.WishList;
 import com.example.service.BookService;
 import com.example.service.UserService;
@@ -49,9 +50,12 @@ public class WishListController {
 		return "wishList/index";
 	}
 	
-	@GetMapping("/{id}")
-	public String show(Model model, @PathVariable("id") Integer id) {
-		if (id != null) {
+	@GetMapping("/{userId}/{bookId}")
+	public String show(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId)
+	{
+		if (userId != null && bookId != null) 
+		{
+			UserBookId id = new UserBookId(userId, bookId);
 			WishList wishList = wishListService.findOne(id).get();
 			model.addAttribute("wishList", wishList);
 		}
@@ -85,13 +89,15 @@ public class WishListController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
 		
-		return "redirect:/wishLists/" + wishList.getId();
+		return "redirect:/wishLists/" + wishList.getId().getUserId() + "/" + wishList.getId().getBookId();
 	}
 	
-	@GetMapping("/{id}/edit")
-	public String update(Model model, @PathVariable("id") Integer id) {
+	@GetMapping("/{userId}/{bookId}/edit")
+	public String update(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
 		try {
-			if (id != null) {
+			if (userId != null && bookId != null) 
+			{
+				UserBookId id = new UserBookId(userId, bookId);
 
 				List<User> allUsers = userService.findAll();
 				model.addAttribute("users", allUsers);
@@ -117,13 +123,15 @@ public class WishListController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			e.printStackTrace();
 		}
-		return "redirect:/wishLists/" + wishList.getId();
+		return "redirect:/wishLists/" + wishList.getId().getUserId() + "/" + wishList.getId().getBookId();
 	}
 	
-	@RequestMapping("/{id}/delete")
-	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	@RequestMapping("/{userId}/{bookId}/delete")
+	public String delete(@PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId, RedirectAttributes redirectAttributes) {
 		try {
-			if (id != null) {
+			if (userId != null && bookId != null) 
+			{
+				UserBookId id = new UserBookId(userId, bookId);
 				WishList entity = wishListService.findOne(id).get();
 				wishListService.delete(entity);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
@@ -132,7 +140,7 @@ public class WishListController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			throw new ServiceException(e.getMessage());
 		}
-		return "redirect:/wishLists/";
+		return "redirect:/wishLists";
 	}
 
 }

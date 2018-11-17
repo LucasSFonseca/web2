@@ -15,8 +15,8 @@
 		<h1>Mostrar Coleções</h1>
 		<hr />
 		<div class="form-group"> 
-			<label for="id">ID Registro: </label>  
-			<span th:text="${collection.id}"></span> 
+			<label for="addedOn">Data do Registro: </label>  
+			<span th:text="${collection.addedOn}"></span> 
 		</div> 
 		<div class="form-group"> 
 			<label for="user_id">ID Usuario: </label>  
@@ -46,10 +46,9 @@
 		</table>
 		-->
 		
-		
 		<a th:href="@{/collections}" class="btn btn-primary">Voltar para a Lista de Livros</a>
-		<a th:href="@{/collections/{id}/edit(id = ${collection.id})}" class="btn btn-info">Editar collection</a>
-		<a th:href="${collection.id +'/delete'}" class="btn btn-danger">Excluir collection</a>
+		<a th:href="@{/collections/{userId}/{bookId}/edit(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-info">Editar collection</a>
+		<a th:href="${collection.id.bookId +'/delete'}" class="btn btn-danger">Excluir collection</a>
 		
 	</div>
 </body>

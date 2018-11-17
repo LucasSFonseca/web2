@@ -20,9 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.model.Book;
 import com.example.model.Collection;
 import com.example.model.User;
+import com.example.model.UserBookId;
 import com.example.service.BookService;
 import com.example.service.CollectionService;
-import com.example.service.ModuleService;
 import com.example.service.UserService;
 
 @Controller
@@ -49,9 +49,13 @@ public class CollectionController {
 		return "collection/index";
 	}
 	
-	@GetMapping("/{id}")
-	public String show(Model model, @PathVariable("id") Integer id) {
-		if (id != null) {
+	@GetMapping("/{userId}/{bookId}")
+	public String show(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId)
+	{
+		if (userId != null && bookId != null) 
+		{
+			UserBookId id = new UserBookId(userId, bookId);
+			
 			Collection collection = collectionService.findOne(id).get();
 			model.addAttribute("collection", collection);
 		}
@@ -60,7 +64,8 @@ public class CollectionController {
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Collection entityCollection) {
-
+		
+		//model.addAttribute("collection", entityCollection);
 		List<User> allUsers = userService.findAll();
 		model.addAttribute("users", allUsers);
 		List<Book> allBooks = bookService.findAll();
@@ -71,10 +76,10 @@ public class CollectionController {
 	}
 	
 	@PostMapping
-	public String create(@Valid @ModelAttribute Collection entity, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String create(@Valid @ModelAttribute Collection entityCollection, BindingResult result, RedirectAttributes redirectAttributes) {
 		Collection collection = null;
 		try {
-			collection = collectionService.save(entity);
+			collection = collectionService.save(entityCollection);
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
@@ -86,13 +91,16 @@ public class CollectionController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
 		
-		return "redirect:/collections/" + collection.getId();
+		return "redirect:/collections/" + collection.getId().getUserId() + "/" + collection.getId().getBookId();
 	}
 	
-	@GetMapping("/{id}/edit")
-	public String update(Model model, @PathVariable("id") Integer id) {
+	@GetMapping("/{userId}/{bookId}/edit")
+	public String update(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
 		try {
-			if (id != null) {
+			if (userId != null && bookId != null) 
+			{
+				UserBookId id = new UserBookId(userId, bookId);
+				
 				List<User> allUsers = userService.findAll();
 				model.addAttribute("users", allUsers);
 				List<Book> allBooks = bookService.findAll();
@@ -117,14 +125,16 @@ public class CollectionController {
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			e.printStackTrace();
-		}
-		return "redirect:/collections/" + collection.getId();
+		}	
+		return "redirect:/collections/" + collection.getId().getUserId() + "/" + collection.getId().getBookId();
 	}
 	
-	@RequestMapping("/{id}/delete")
-	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	@RequestMapping("/{userId}/{bookId}/delete")
+	public String delete(@PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId, RedirectAttributes redirectAttributes) {
 		try {
-			if (id != null) {
+			if (userId != null && bookId != null) 
+			{
+				UserBookId id = new UserBookId(userId, bookId);
 				Collection entity = collectionService.findOne(id).get();
 				collectionService.delete(entity);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
@@ -133,7 +143,7 @@ public class CollectionController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			throw new ServiceException(e.getMessage());
 		}
-		return "redirect:/collections/";
+		return "redirect:/collections";
 	}
 
 }

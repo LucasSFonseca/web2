@@ -1,42 +1,73 @@
 package com.example.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "wishLists")
+@Entity(name = "WishList")
+@Table(name = "wishList")
 public class WishList implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
-	private Integer id;
+	@EmbeddedId
+    private UserBookId id;
+ 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId")
+    private User user;
+ 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("bookId")
+    private Book book;
+ 
+    @Column(name = "added_on")
+    private Date addedOn = new Date();
+    
+    @SuppressWarnings("unused")
+	private WishList() {}
+    
+    public WishList(User user, Book book) 
+    {
+        this.user = user;
+        this.book = book;
+        
+        if(book != null && user != null)
+        {
+            this.id = new UserBookId(user.getId(), book.getId());
+        }
+    }
+ 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+ 
+        if (o == null || getClass() != o.getClass())
+            return false;
+ 
+        WishList that = (WishList) o;
+        return Objects.equals(user, that.user) &&
+               Objects.equals(book, that.book);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, book);
+    }
 
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user; 
-	
-	@OneToOne
-	@JoinColumn(name="book_id")
-	private Book book;
-
-	public Integer getId() {
+	public UserBookId getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(UserBookId id) {
 		this.id = id;
 	}
 
@@ -54,5 +85,13 @@ public class WishList implements Serializable  {
 
 	public void setBook(Book book) {
 		this.book = book;
+	}
+
+	public Date getAddedOn() {
+		return addedOn;
+	}
+
+	public void setAddedOn(Date addedOn) {
+		this.addedOn = addedOn;
 	} 
 }

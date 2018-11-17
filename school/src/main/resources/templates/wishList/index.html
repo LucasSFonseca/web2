@@ -19,20 +19,20 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>ID Desejo</th> 
+					<th>Data de Adição</th> 
 					<th>ID Usuario</th> 
 					<th>ID Livro</th> 
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="wishList : ${listWishList}">
-					<td th:text="${wishList.id}"></td> 
+					<td th:text="${wishList.addedOn}"></td> 
 					<td th:text="${wishList.user.id}"></td> 
 					<td th:text="${wishList.book.id}"></td> 
 					<td>
-							<a th:href="@{/wishLists/{id}(id = ${wishList.id})}" class="btn btn-primary">Exibir</a> 
-					 		<a th:href="@{/wishLists/{id}/edit(id = ${wishList.id})}" class="btn btn-info">Editar</a> 
-							<a th:href="${'wishLists/'+ wishList.id+'/delete'}" class="btn btn-danger">Excluir</a>
+							<a th:href="@{/wishLists/{userId}/{bookId}(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'wishLists/'+ wishList.id.userId +'/' + wishList.id.bookId +'/delete'}" class="btn btn-danger">Excluir</a>
 					</td>
 				</tr>
 			</tbody>

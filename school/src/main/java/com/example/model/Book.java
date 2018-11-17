@@ -1,7 +1,9 @@
 package com.example.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,14 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "book")
+@NaturalIdCache
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,12 +32,13 @@ public class Book implements Serializable {
 	@Column(name="id")
 	private Integer id;
 
-	@OneToOne(mappedBy = "book")
-	private Collection usuarioTem; 
-
-	@OneToOne(mappedBy = "book")
-	private WishList usuarioQuer; 
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Collection> usuarioTem = new ArrayList<Collection>();
 	
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<WishList> usuarioQuer = new ArrayList<WishList>();
+
+	@NaturalId
 	@Column(name="ISBN")
 	private Integer ISBN;
 	
@@ -66,6 +74,36 @@ public class Book implements Serializable {
 //	@JoinColumn(name="id")
 //	private User user; 
 	
+	public Book()
+	{
+	}
+	
+    public Book(Integer iSBN, Integer numeroPaginas, String titulo, String autor, String dataP, String thumbnail, String idioma, String descricao, float media)
+    {
+		ISBN = iSBN;
+		this.numeroPaginas = numeroPaginas;
+		this.titulo = titulo;
+		this.autor = autor;
+		this.dataP = dataP;
+		this.thumbnail = thumbnail;
+		this.idioma = idioma;
+		this.descricao = descricao;
+		this.media = media;
+	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(ISBN, book.ISBN);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(ISBN);
+    }
+	
 	public Integer getId() {
 		return id;
 	}
@@ -79,7 +117,7 @@ public class Book implements Serializable {
 	}
 
 	public void setISBN(Integer ISBN) {
-		ISBN = ISBN;
+		this.ISBN = ISBN;
 	}
 
 	public Integer getNumeroPaginas() {
@@ -146,6 +184,22 @@ public class Book implements Serializable {
 		this.media = media;
 	}
 
+	public List<Collection> getUsuarioTem() {
+		return usuarioTem;
+	}
+
+	public void setUsuarioTem(List<Collection> usuarioTem) {
+		this.usuarioTem = usuarioTem;
+	}
+
+	public List<WishList> getUsuarioQuer() {
+		return usuarioQuer;
+	}
+
+	public void setUsuarioQuer(List<WishList> usuarioQuer) {
+		this.usuarioQuer = usuarioQuer;
+	}
+	
 //	public Integer getAuthorId() {
 //		return authorId;
 //	}

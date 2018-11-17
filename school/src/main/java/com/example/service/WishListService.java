@@ -2,6 +2,8 @@ package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.model.UserBookId;
 import com.example.model.WishList;
 import com.example.repository.WishListRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +21,7 @@ public class WishListService {
 		return wishListRepository.findAll();
 	}
 
-	public Optional<WishList> findOne(Integer id) {
+	public Optional<WishList> findOne(UserBookId id) {
 		return wishListRepository.findById(id);
 	}
 	

@@ -15,8 +15,8 @@
 		<h1>Mostrar Desejos</h1>
 		<hr />
 		<div class="form-group"> 
-			<label for="id">ID Desejo: </label>  
-			<span th:text="${wishList.id}"></span> 
+			<label for="addedOn">Data de Adição: </label>  
+			<span th:text="${wishList.addedOn}"></span> 
 		</div> 
 		<div class="form-group"> 
 			<label for="user_id">ID Usuario: </label>  
@@ -48,8 +48,8 @@
 		
 		
 		<a th:href="@{/wishLists}" class="btn btn-primary">Voltar para a Lista de Livros</a>
-		<a th:href="@{/wishLists/{id}/edit(id = ${wishList.id})}" class="btn btn-info">Editar book</a>
-		<a th:href="${wishList.id +'/delete'}" class="btn btn-danger">Excluir book</a>
+		<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar book</a>
+		<a th:href="${wishList.id.bookId +'/delete'}" class="btn btn-danger">Excluir book</a>
 		
 	</div>
 </body>
