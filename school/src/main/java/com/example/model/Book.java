@@ -38,7 +38,7 @@ public class Book implements Serializable {
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<WishList> usuarioQuer = new ArrayList<WishList>();
 
-	@NaturalId
+//	@NaturalId
 	@Column(name="ISBN")
 	private Integer ISBN;
 	
