@@ -46,7 +46,12 @@
 					<td th:text="${collection.book.ISBN}"></td> 
 					<td th:text="${collection.book.titulo}"></td>
 					<td th:text="${collection.book.autor}"></td>  
-					<td th:text="${collection.addedOn}"></td>  
+					<td th:text="${collection.addedOn}"></td>
+					<td>
+							<a th:href="@{/books/{id}(id = ${collection.id.bookId})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/collections/{userId}/{bookId}/edit(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-info">Editar</a> 
+							<a th:href="@{/collections/{userId}/{bookId}/delete(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-danger">Excluir</a>
+					</td>  
 				</tr>
 			</tbody>
 		</table>
@@ -62,11 +67,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="collection : ${user.usuarioQuer}">
-					<td th:text="${collection.book.ISBN}"></td> 
-					<td th:text="${collection.book.titulo}"></td>
-					<td th:text="${collection.book.autor}"></td>  
-					<td th:text="${collection.addedOn}"></td>  
+				<tr th:each="wishList : ${user.usuarioQuer}">
+					<td th:text="${wishList.book.ISBN}"></td> 
+					<td th:text="${wishList.book.titulo}"></td>
+					<td th:text="${wishList.book.autor}"></td>  
+					<td th:text="${wishList.addedOn}"></td>
+					<td>
+							<a th:href="@{/books/{id}(id = ${wishList.id.bookId})}" class="btn btn-primary">Exibir</a>  
+					 		<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar</a> 
+							<a th:href="@{/wishLists/{userId}/{bookId}/delete(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-danger">Excluir</a>
+					</td>  
 				</tr>
 			</tbody>
 		</table>
