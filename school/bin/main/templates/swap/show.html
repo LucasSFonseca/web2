@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Mostrar Troca</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Mostrar Troca</h1>
+		<hr />
+		<div class="form-group"> 
+			<label for="userTo">UserTo </label>  
+			<span th:text="${swap.userTo.nome}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="bookTo">BookTo </label>  
+			<span th:text="${swap.bookTo.titulo}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="userFrom">UserFrom </label>  
+			<span th:text="${swap.userFrom.nome}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="bookFrom">BookFrom</label>  
+			<span th:text="${swap.bookFrom.titulo}"></span> 
+		</div> 
+		<div class="form-group"> 
+			<label for="dateOfSwap">DateOfSwap</label>  
+			<span th:text="${swap.dateOfSwap}"></span> 
+		</div> 
+		
+		<!--
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th> 
+					<th>Email</th> 
+					<th>Registration</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="student : ${module.students}">
+					<td th:text="${student.name}"></td> 
+					<td th:text="${student.email}"></td>
+					<td th:text="${student.registration}"></td>  
+				</tr>
+			</tbody>
+		</table>
+		-->
+		
+		
+		<a th:href="@{/swaps}" class="btn btn-primary">Voltar para a Lista de Trocas</a>
+		<a th:href="@{/swaps/{id}/edit(id = ${swap.id})}" class="btn btn-info">Editar troca</a>
+		<a th:href="${swap.id +'/delete'}" class="btn btn-danger">Excluir troca</a>
+		
+	</div>
+</body>
+</html>

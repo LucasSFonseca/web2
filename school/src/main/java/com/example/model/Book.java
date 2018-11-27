@@ -37,6 +37,12 @@ public class Book implements Serializable {
 	
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<WishList> usuarioQuer = new ArrayList<WishList>();
+	
+	@OneToMany(mappedBy = "bookTo", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Swap> trocasTo = new ArrayList<Swap>(); 
+
+	@OneToMany(mappedBy = "bookFrom", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Swap> trocasFrom = new ArrayList<Swap>(); 
 
 //	@NaturalId
 	@Column(name="ISBN")
@@ -198,6 +204,22 @@ public class Book implements Serializable {
 
 	public void setUsuarioQuer(List<WishList> usuarioQuer) {
 		this.usuarioQuer = usuarioQuer;
+	}
+
+	public List<Swap> getTrocasTo() {
+		return trocasTo;
+	}
+
+	public void setTrocasTo(List<Swap> trocasTo) {
+		this.trocasTo = trocasTo;
+	}
+
+	public List<Swap> getTrocasFrom() {
+		return trocasFrom;
+	}
+
+	public void setTrocasFrom(List<Swap> trocasFrom) {
+		this.trocasFrom = trocasFrom;
 	}
 	
 //	public Integer getAuthorId() {

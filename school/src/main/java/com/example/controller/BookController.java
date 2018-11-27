@@ -113,7 +113,7 @@ public class BookController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			throw new ServiceException(e.getMessage());
 		}
-		return "redirect:/books/";
+		return "redirect:/books";
 	}
 
 }

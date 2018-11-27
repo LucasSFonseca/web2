@@ -27,6 +27,7 @@ dependencies {
     runtime group: 'mysql', name: 'mysql-connector-java', version:'5.1.46'
     //compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.0.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.4.RELEASE'
     //https://mvnrepository.com/artifact/org.hsqldb/hsqldb
 	// testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'
 	// runtime group: 'com.h2database', name: 'h2', version: '1.4.197'

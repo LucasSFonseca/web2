@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+ 	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Lista de Trocas</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h1>Lista de Trocas</h1>
+		<hr />
+		<a th:href="@{/swaps/new}" class="btn btn-success">Nova Troca</a><br/><br/>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>UserTo</th> 
+					<th>BookTo</th> 
+					<th>UserFrom</th> 
+					<th>BookFrom</th> 
+					<th>DateOfSwap</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="swap : ${listSwap}">
+					<td th:text="${swap.userTo.nome}"></td> 
+					<td th:text="${swap.bookTo.titulo}"></td> 
+					<td th:text="${swap.userFrom.nome}"></td> 
+					<td th:text="${swap.bookFrom.titulo}"></td> 
+					<td th:text="${swap.dateOfSwap}"></td>
+					<td>
+							<a th:href="@{/swaps/{id}(id = ${swap.id})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/swaps/{id}/edit(id = ${swap.id})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'swaps/'+ swap.id+'/delete'}" class="btn btn-danger">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
