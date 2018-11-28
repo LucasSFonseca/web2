@@ -37,9 +37,9 @@ public class Collection implements Serializable  {
     @Column(name = "added_on")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date addedOn;
+    private Date addedOn = new Date();
  
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private Collection() {}
  
     public Collection(User user, Book book) 

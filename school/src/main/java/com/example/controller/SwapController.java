@@ -110,6 +110,7 @@ public class SwapController {
 	public String create(@Valid @ModelAttribute Swap entity, BindingResult result, RedirectAttributes redirectAttributes) {
 		Swap swap = null;
 		try {
+			swapService.swapBooks(entity);
 			swap = swapService.save(entity);
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
