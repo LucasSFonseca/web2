@@ -19,11 +19,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	public void configure(HttpSecurity http) throws Exception
 	{
-		http.antMatcher("/**").authorizeRequests().anyRequest().hasRole("USER")
-				.and().formLogin().loginPage("/login")
-				/*.failureUrl("login/index.html")*/.loginProcessingUrl("/login")
-				.permitAll().and().logout()
-				.logoutSuccessUrl("/home.html");
+//		http.antMatcher("/**").authorizeRequests().anyRequest().hasRole("USER")
+//				.and().formLogin().loginPage("/login")
+//				/*.failureUrl("login/index.html")*/.loginProcessingUrl("/login")
+//				.permitAll().and().logout()
+//				.logoutSuccessUrl("/home.html");
 	}
 
 }

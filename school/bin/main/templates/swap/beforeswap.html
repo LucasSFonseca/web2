@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Nova Troca</title>
+</head>
+<body>
+	
+	<div layout:fragment="content">
+
+		<h1>Nova Troca</h1>
+		<hr />
+		<form th:action="@{/swaps/beforeswap}" th:method="@{'post'}"
+			th:object="${swap}">
+			<input type="hidden" th:field="*{id}" />
+			
+			 <div class="form-group" th:object="${userTo}">
+				 <select name="userTo" class="form-control">
+					 <option value="" th:disabled="disabled">Selecione o Usuario</option>
+			 		 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+				</select>	
+			 </div>
+			 
+			 <div class="form-group" th:object="${userFrom}">
+				 <select name="userFrom" class="form-control">
+					 <option value="" th:disabled="disabled">Selecione o Usuario</option>
+			 		 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+				</select>	
+			 </div>	
+
+			<button th:href="@{/swaps}" class="btn btn-success">Salvar</button>
+			<a th:href="@{/swaps}" class="btn btn-default">Voltar</a>
+		</form>
+	</div>
+</body>
+</html>

@@ -56,15 +56,54 @@ public class SwapController {
 		}
 		return "swap/show";
 	}
+	
+	@PostMapping("/beforeswap")
+	public String redirectFromSwap(@Valid @ModelAttribute Swap entity, BindingResult result, RedirectAttributes redirectAttributes)
+	{
+		Swap swap = null;
+		
+		try{
+			swap = (Swap) entity;
+			System.out.println( "UserTo Swap: " + swap.getUserTo().getId() );
+		} catch (Exception e) {
+			System.out.println("Exception:: exception");
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+		}catch (Throwable e) {
+			System.out.println("Throwable:: exception");
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+		}
+		
+		return "redirect:/swaps/" + swap.getUserTo().getId() + "/" + swap.getUserFrom().getId();
+	}
+	
+	@GetMapping("/{idUserTo}/{idUserFrom}")
+	public String show(Model model, @PathVariable("idUserTo") Integer idUserTo, @PathVariable("idUserFrom") Integer idUserFrom, @ModelAttribute Swap entitySwap)
+	{
+		if (idUserTo != null && idUserFrom != null)
+		{
+			User userTo = userService.findOne(idUserTo).get();
+			model.addAttribute("userTo", userTo);
+			
+			User userFrom = userService.findOne(idUserFrom).get();
+			model.addAttribute("userFrom", userFrom);
+
+			List<Book> booksTo = bookService.findByCollections(userTo.getUsuarioTem());
+			model.addAttribute("booksTo", booksTo);
+			
+			List<Book> booksFrom = bookService.findByCollections(userFrom.getUsuarioTem());
+			model.addAttribute("booksFrom", booksFrom);
+		}
+		return "swap/form";
+	}
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Swap entitySwap) {
 		// model.addAttribute("swap", entitySwap);
 		List<User> allUsers = userService.findAll();
 		model.addAttribute("users", allUsers);
-		List<Book> allBooks = bookService.findAll();
-		model.addAttribute("books", allBooks);
-		return "swap/form";
+		return "swap/beforeswap";
 	}
 	
 	@PostMapping

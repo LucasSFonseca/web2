@@ -3,8 +3,11 @@ package com.example.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.model.Book;
+import com.example.model.Collection;
 import com.example.repository.BookRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,18 @@ public class BookService {
 
 	public List<Book> findAll() {
 		return bookRepository.findAll();
+	}
+	
+	public List<Book> findByCollections(List<Collection> collections)
+	{
+		List<Book> books = new ArrayList<Book>();
+		
+		for( Collection col : collections )
+		{
+			books.add( bookRepository.findById( col.getId().getBookId() ).get() );
+		}
+		
+		return books;
 	}
 
 	public Optional<Book> findOne(Integer id) {
