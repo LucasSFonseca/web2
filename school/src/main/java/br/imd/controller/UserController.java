@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.imd.model.Role;
 import br.imd.model.User;
+import br.imd.service.RoleService;
 import br.imd.service.UserService;
 
 @Controller
@@ -31,6 +33,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RoleService roleService;
 	
 
 	@GetMapping
@@ -52,6 +56,9 @@ public class UserController {
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute User entityUser) {
 		// model.addAttribute("user", entityUser);
+
+		List<Role> roles = roleService.findAll();
+		model.addAttribute("roles", roles);
 		
 		return "user/form";
 	}
@@ -61,7 +68,7 @@ public class UserController {
 		User user = null;
 		try {
 			user = userService.save(entity);
-			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+			//redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
 			e.printStackTrace();
@@ -71,7 +78,8 @@ public class UserController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
-		return "redirect:/users/" + user.getId();
+		//return "redirect:/users/" + user.getId();
+		return "redirect:/";
 	}
 	
 	@GetMapping("/{id}/edit")
@@ -92,12 +100,14 @@ public class UserController {
 		User user = null;
 		try {
 			user = userService.save(entity);
-			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
+			//redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			e.printStackTrace();
 		}
-		return "redirect:/users/" + user.getId();
+		
+		//return "redirect:/users/" + user.getId();
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/{id}/delete")

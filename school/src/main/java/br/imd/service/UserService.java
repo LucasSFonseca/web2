@@ -1,6 +1,7 @@
 package br.imd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.imd.model.User;
@@ -27,6 +28,7 @@ public class UserService {
 	
 	@Transactional(readOnly = false)
 	public User save(User entity) {
+		entity.setPassword( new BCryptPasswordEncoder().encode( entity.getPassword() ) );
 		return userRepository.save(entity);
 	}
 
