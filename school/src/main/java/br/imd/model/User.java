@@ -90,52 +90,6 @@ public class User implements UserDetails, Serializable{
 		this.login = login;
 		this.password = password;
 	}
-    
-/*    public void addHaveBook(Book book) 
-    {
-        Collection collection = new Collection(this, book);
-        usuarioTem.add(collection);
-        book.getUsuarioTem().add(collection);
-    }
- 
-    public void removeHaveBook(Book book)
-    {
-        for (Iterator<Collection> iterator = usuarioTem.iterator(); iterator.hasNext(); )
-        {
-            Collection collection = iterator.next();
- 
-            if (collection.getUser().equals(this) && collection.getBook().equals(book)) 
-            {
-                iterator.remove();
-                collection.getBook().getUsuarioTem().remove(collection);
-                collection.setUser(null);
-                collection.setBook(null);
-            }
-        }
-    }*/
-    
-    /*public void addWishBook(Book book) 
-    {
-    	WishList wishList = new WishList(this, book);
-        usuarioQuer.add(wishList);
-        book.getUsuarioQuer().add(wishList);
-    }
- 
-    public void removeWishBook(Book book)
-    {
-        for (Iterator<WishList> iterator = usuarioQuer.iterator(); iterator.hasNext(); )
-        {
-        	WishList wishList = iterator.next();
- 
-            if (wishList.getUser().equals(this) && wishList.getBook().equals(book)) 
-            {
-                iterator.remove();
-                wishList.getBook().getUsuarioQuer().remove(wishList);
-                wishList.setUser(null);
-                wishList.setBook(null);
-            }
-        }
-    }*/
 
 	public Integer getId() {
 		return id;
