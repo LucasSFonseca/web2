@@ -2,14 +2,17 @@ package br.imd.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
+@Table(name = "role")
 public class Role implements GrantedAuthority, Serializable{
 
 	private static final long serialVersionUID = 1L;

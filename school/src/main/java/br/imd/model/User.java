@@ -55,14 +55,11 @@ public class User implements UserDetails, Serializable{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<WishList> usuarioQuer = new ArrayList<WishList>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable( 
-	        name = "users_roles", 
-	        joinColumns = @JoinColumn(
-	          name = "user_login", referencedColumnName = "login"), 
-	        inverseJoinColumns = @JoinColumn(
-	          name = "role_id", referencedColumnName = "id")) 
-    private List<Role> roles;
+	@ManyToMany
+	@JoinTable ( name = "users_roles", 
+			joinColumns = @JoinColumn ( name = "user_login", referencedColumnName = "login"), 
+	        inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id")) 
+    private List<Role> roles = new ArrayList<Role>();
 	
 	//Getters and setters omitted for brevity
 	 
@@ -81,6 +78,9 @@ public class User implements UserDetails, Serializable{
     
     public User()
     {
+    	Role role = new Role();
+    	role.setId("ROLE_USER");
+    	this.roles.add(role);
     }
     
     public User(String nome, String email, String login, String password) 
@@ -91,7 +91,7 @@ public class User implements UserDetails, Serializable{
 		this.password = password;
 	}
     
-    public void addHaveBook(Book book) 
+/*    public void addHaveBook(Book book) 
     {
         Collection collection = new Collection(this, book);
         usuarioTem.add(collection);
@@ -112,7 +112,7 @@ public class User implements UserDetails, Serializable{
                 collection.setBook(null);
             }
         }
-    }
+    }*/
     
     /*public void addWishBook(Book book) 
     {
