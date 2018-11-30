@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -16,7 +18,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity(name = "Collection")
+@Entity
 @Table(name = "collection")
 public class Collection implements Serializable  {
 
@@ -28,10 +30,12 @@ public class Collection implements Serializable  {
  
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
+	@JoinColumn(foreignKey = @ForeignKey( name="userId"))
     private User user;
  
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("bookId")
+	@JoinColumn(foreignKey = @ForeignKey( name="bookId"))
     private Book book;
  
     @Column(name = "added_on")

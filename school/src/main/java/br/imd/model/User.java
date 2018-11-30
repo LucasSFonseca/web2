@@ -9,6 +9,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,8 +58,8 @@ public class User implements UserDetails, Serializable{
 	
 	@ManyToMany
 	@JoinTable ( name = "users_roles", 
-			joinColumns = @JoinColumn ( name = "user_login", referencedColumnName = "login"), 
-	        inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id")) 
+			joinColumns = @JoinColumn ( name = "user_login", referencedColumnName = "login", foreignKey = @ForeignKey( name = "user_login" )), 
+	        inverseJoinColumns = @JoinColumn( name = "role_id", referencedColumnName = "id", foreignKey = @ForeignKey( name = "role_id" ))) 
     private List<Role> roles = new ArrayList<Role>();
 	
 	//Getters and setters omitted for brevity

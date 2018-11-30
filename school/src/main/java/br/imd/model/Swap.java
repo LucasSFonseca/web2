@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.ForeignKey;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -33,19 +34,19 @@ public class Swap implements Serializable
 	private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="IdUserTo")
+	@JoinColumn(foreignKey = @ForeignKey( name="IdUserTo" ))
     User userTo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="IdUserFrom")
+	@JoinColumn(foreignKey = @ForeignKey( name="IdUserFrom"))
     User userFrom;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="IdBookTo")
+	@JoinColumn(foreignKey = @ForeignKey( name="IdBookTo"))
     Book bookTo;
     
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="IdBookFrom")
+	@JoinColumn(foreignKey = @ForeignKey( name="IdBookFrom"))
     Book bookFrom;
     
     @Column(name = "dateOfSwap")
