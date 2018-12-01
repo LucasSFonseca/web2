@@ -1,13 +1,13 @@
 <div id="sidebar" class="nav-collapse " data-th-fragment="side-bar-menu">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+          <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" th:src="@{/img/ui-sam.jpg}" class="img-circle" width="80"></a></p>
           <h5 class="centered">
           <span th:text="${user.nome}"></span> 
           <!-- User Name -->
           </h5>
           <li class="mt">
-            <a class="active" href="index.html">
+            <a class="active" href="/">
               <i class="fa fa-dashboard"></i>
               <span>Dashboard</span>
               </a>
@@ -18,8 +18,9 @@
               <span>Livros</span>
               </a>
             <ul class="sub">
+              <li><a href="/books">Acervo</a></li>
               <li><a href="/collections">Meus Livros</a></li>
-              <li><a href="/wishlists">Livros Desejados</a></li>
+              <li><a href="/wishLists">Livros Desejados</a></li>
             </ul>
           </li>
           <li class="sub-menu">
@@ -28,8 +29,8 @@
               <span>Centro de Trocas</span>
               </a>
             <ul class="sub">
-              <li><a href="blank.html">Fazer Trocas</a></li>
-              <li><a href="login.html">Minhas Trocas</a></li>
+              <li><a href="/swaps/new">Fazer Trocas</a></li>
+              <li><a href="/swaps">Minhas Trocas</a></li>
             </ul>
           </li>
           <li class="sub-menu">

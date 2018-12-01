@@ -35,6 +35,10 @@ public class SwapService
 	public List<Swap> findAll() {
 		return swapRepository.findAll();
 	}
+	
+	public List<Swap> findByUser(Integer id) {
+		return swapRepository.findByUser(id);
+	}
 
 	public Optional<Swap> findOne(Integer id) {
 		return swapRepository.findById(id);

@@ -22,6 +22,10 @@ public class WishListService {
 		return wishListRepository.findAll();
 	}
 
+	public List<WishList> findByUser(Integer userId) {
+		return wishListRepository.findByUser(userId);
+	}
+
 	public Optional<WishList> findOne(UserBookId id) {
 		return wishListRepository.findById(id);
 	}

@@ -53,10 +53,10 @@ public class CollectionController {
 	    User user = userService.findByLogin(name);
 		model.addAttribute("user", user);
 		
-		/*List<Collection> all = collectionService.findByUser( user.getId() );
+		List<Collection> all = collectionService.findByUser( user.getId() );
 		
 		if( !all.isEmpty() )
-			model.addAttribute("listCollection", all);*/
+			model.addAttribute("listCollection", all);
 		
 		return "collection/index";
 	}
@@ -64,6 +64,12 @@ public class CollectionController {
 	@GetMapping("/{userId}/{bookId}")
 	public String show(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId)
 	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		if (userId != null && bookId != null) 
 		{
 			UserBookId id = new UserBookId(userId, bookId);
@@ -76,6 +82,12 @@ public class CollectionController {
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Collection entityCollection) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
 		
 		//model.addAttribute("collection", entityCollection);
 		List<User> allUsers = userService.findAll();
@@ -108,6 +120,13 @@ public class CollectionController {
 	
 	@GetMapping("/{userId}/{bookId}/edit")
 	public String update(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		try {
 			if (userId != null && bookId != null) 
 			{

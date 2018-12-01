@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+ 	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Lista de Livros</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h1>Lista de Livros</h1>
+		<hr />
+		<a th:href="@{/books/new}" class="btn btn-success">Novo Livro</a><br/><br/>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ISBN</th> 
+					<th>Titulo</th> 
+					<th>Autor</th> 
+					<th>Data de Publicação</th> 
+					<th>Thumbnail</th> 
+					<th>Idioma</th> 
+					<th>Descrição</th> 
+					<th>Média</th> 
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${listBook}">
+					<td th:text="${book.ISBN}"></td> 
+					<td th:text="${book.titulo}"></td> 
+					<td th:text="${book.autor}"></td> 
+					<td th:text="${book.dataP}"></td> 
+					<td th:text="${book.thumbnail}"></td> 
+					<td th:text="${book.idioma}"></td> 
+					<td th:text="${book.descricao}"></td> 
+					<td th:text="${book.media}"></td> 
+					<td>
+							<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'books/'+ book.id+'/delete'}" class="btn btn-danger">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +45,13 @@ public class SwapController {
 	
 	@GetMapping
 	public String index(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		List<Swap> all = swapService.findAll();
 		model.addAttribute("listSwap", all);
 		return "swap/index";
@@ -50,6 +59,13 @@ public class SwapController {
 	
 	@GetMapping("/{id}")
 	public String show(Model model, @PathVariable("id") Integer id) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		if (id != null) {
 			Swap swap = swapService.findOne(id).get();
 			model.addAttribute("swap", swap);
@@ -81,6 +97,13 @@ public class SwapController {
 	@GetMapping("/{idUserTo}/{idUserFrom}")
 	public String show(Model model, @PathVariable("idUserTo") Integer idUserTo, @PathVariable("idUserFrom") Integer idUserFrom, @ModelAttribute Swap entitySwap)
 	{
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		if (idUserTo != null && idUserFrom != null)
 		{
 			User userTo = userService.findOne(idUserTo).get();
@@ -100,6 +123,11 @@ public class SwapController {
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Swap entitySwap) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
 		// model.addAttribute("swap", entitySwap);
 		List<User> allUsers = userService.findAll();
 		model.addAttribute("users", allUsers);
@@ -128,6 +156,13 @@ public class SwapController {
 	
 	@GetMapping("/{id}/edit")
 	public String update(Model model, @PathVariable("id") Integer id) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		try {
 			if (id != null) {
 				Swap entity = swapService.findOne(id).get();
