@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -18,6 +19,7 @@ public class Role implements GrantedAuthority, Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(length=20)
 	private String id;
 
 	@ManyToMany(mappedBy = "roles")

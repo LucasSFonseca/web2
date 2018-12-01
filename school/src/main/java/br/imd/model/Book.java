@@ -44,25 +44,25 @@ public class Book implements Serializable {
 	private List<Swap> trocasFrom = new ArrayList<Swap>(); 
 
 //	@NaturalId
-	@Column(name="ISBN")
-	private Integer ISBN;
+	@Column(name="ISBN", length=13)
+	private String ISBN;
 	
 	@Column(name="numero_paginas")
 	private Integer numeroPaginas;
 	
-	@Column(name="titulo")
+	@Column(name="titulo", length=45)
 	private String titulo;
 	
-	@Column(name="autor")
+	@Column(name="autor", length=45)
 	private String autor;
 	
-	@Column(name="data_publicacao")
+	@Column(name="data_publicacao", length=12)
 	private String dataP;
 	
-	@Column(name="thumbnail")
+	@Column(name="thumbnail", length=125)
 	private String thumbnail;
 	
-	@Column(name="idioma")
+	@Column(name="idioma", length=2)
 	private String idioma;
 	
 	@Column(name="descricao")
@@ -83,7 +83,7 @@ public class Book implements Serializable {
 	{
 	}
 	
-    public Book(Integer iSBN, Integer numeroPaginas, String titulo, String autor, String dataP, String thumbnail, String idioma, String descricao, float media)
+    public Book(String iSBN, Integer numeroPaginas, String titulo, String autor, String dataP, String thumbnail, String idioma, String descricao, float media)
     {
 		ISBN = iSBN;
 		this.numeroPaginas = numeroPaginas;
@@ -117,11 +117,11 @@ public class Book implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getISBN() {
+	public String getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(Integer ISBN) {
+	public void setISBN(String ISBN) {
 		this.ISBN = ISBN;
 	}
 

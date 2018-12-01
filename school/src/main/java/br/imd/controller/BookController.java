@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+import br.imd.api.BookApi;
 import br.imd.model.Book;
 import br.imd.service.BookService;
 
@@ -59,9 +63,20 @@ public class BookController {
 	@PostMapping
 	public String create(@Valid @ModelAttribute Book entity, BindingResult result, RedirectAttributes redirectAttributes) {
 		Book book = null;
+		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		try {
-			book = bookService.save(entity);
-			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+			Book book2 = BookApi.queryGoogleBooks(jsonFactory, "isbn: " + entity.getISBN());
+			System.out.println("=====================================");
+			System.out.println("ISBN: " + book2.getISBN());
+			System.out.println("=====================================");
+			if(book2 != null) {
+				book = bookService.save(book2);
+				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+				return "redirect:/books/" + book.getId();
+			}
+			else {
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
 			e.printStackTrace();
@@ -72,7 +87,7 @@ public class BookController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
 		
-		return "redirect:/books/" + book.getId();
+		return "redirect:/books/";
 	}
 	
 	@GetMapping("/{id}/edit")
