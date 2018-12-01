@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,8 +46,18 @@ public class CollectionController {
 
 	@GetMapping
 	public String index(Model model) {
-		List<Collection> all = collectionService.findAll();
-		model.addAttribute("listCollection", all);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
+		/*List<Collection> all = collectionService.findByUser( user.getId() );
+		
+		if( !all.isEmpty() )
+			model.addAttribute("listCollection", all);*/
+		
 		return "collection/index";
 	}
 	

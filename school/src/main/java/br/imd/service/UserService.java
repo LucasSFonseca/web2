@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.imd.model.Role;
 import br.imd.model.User;
 import br.imd.repository.UserRepository;
 
@@ -27,6 +26,10 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 	
+	public User findByLogin(String login) {
+		return userRepository.findByLogin(login);
+	}
+	
 	@Transactional(readOnly = false)
 	public User save(User entity) {		
 		entity.setPassword( new BCryptPasswordEncoder().encode( entity.getPassword() ) );
@@ -37,6 +40,7 @@ public class UserService {
 	public void delete(User entity) {
 		userRepository.delete(entity);
 	}
-
+	
+	
 }
 	
