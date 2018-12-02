@@ -22,7 +22,7 @@
 			 <div class="form-group" th:object="${user}">
 				 <select name="user" class="form-control">
 					 <option value="" th:disabled="disabled">Selecione o Usuario</option>
-			 		 <option th:if="${collection.id == null}" th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+			 		 <option th:if="${collection.id == null}" th:value="${user.id}" th:text="${user.nome}"></option>
 			 		 <option th:if="${collection.id != null}" th:value="${users.id}" th:text="${users.nome}" selected="selected" ></option>
 				</select>	
 			 </div>

@@ -44,7 +44,6 @@
 							<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Exibir</a> 
 					 		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar</a> 
 					 		<a th:attr="data-id=${book.id}" data-toggle="modal" href="#myModal" class="open-RemoveBookDialog btn btn-danger">Excluir</a>
-						<!--<a th:href="${'books/'+ book.id+'/delete'}" class="btn btn-danger">Excluir</a> -->
 					</td>
 				</tr>
 			</tbody>
