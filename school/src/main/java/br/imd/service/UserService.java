@@ -21,6 +21,10 @@ public class UserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	
+	public List<User> findAllExcept(Integer id) {
+		return userRepository.findByAllExcept(id);
+	}
 
 	public Optional<User> findOne(Integer id) {
 		return userRepository.findById(id);

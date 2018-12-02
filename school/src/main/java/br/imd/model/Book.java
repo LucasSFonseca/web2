@@ -50,22 +50,22 @@ public class Book implements Serializable {
 	@Column(name="numero_paginas")
 	private Integer numeroPaginas;
 	
-	@Column(name="titulo")
+	@Column(name="titulo", length=80)
 	private String titulo;
 	
-	@Column(name="autor")
+	@Column(name="autor", length=100)
 	private String autor;
 	
-	@Column(name="data_publicacao")
+	@Column(name="data_publicacao", length=80)
 	private String dataP;
 	
-	@Column(name="thumbnail")
+	@Column(name="thumbnail", length=80)
 	private String thumbnail;
 	
-	@Column(name="idioma")
+	@Column(name="idioma", length=50)
 	private String idioma;
 	
-	@Column(name="descricao")
+	@Column(name="descricao", length=150)
 	private String descricao;
 	
 	@Column(name="media")

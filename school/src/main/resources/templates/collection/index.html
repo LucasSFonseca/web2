@@ -7,36 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Lista de Coleções</title>
+    <title>Meus Livros</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
-		<h1>Lista de Coleções</h1>
+		
+		<h1>Meus Livros</h1>
 		<hr />
 		<a th:href="@{/collections/new}" class="btn btn-success">Novo Registro</a><br/><br/>
-		
+		   
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Data do Registro</th> 
-					<th>ID Usuario</th> 
-					<th>ID Livro</th> 
+					<th>ISBN</th> 
+					<th>Titulo</th> 
+					<th>Autor</th> 
+					<th>Data de Publicação</th> 
+					<th>Thumbnail</th> 
+					<th>Idioma</th> 
+					<th>Descrição</th> 
+					<th>Média</th> 
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="collection : ${listCollection}">
-					<td th:text="${collection.addedOn}"></td> 
-					<td th:text="${collection.user.id}"></td> 
-					<td th:text="${collection.book.id}"></td> 
+				<tr th:each="book : ${listBook}">
+					<td th:text="${book.ISBN}"></td> 
+					<td th:text="${book.titulo}"></td> 
+					<td th:text="${book.autor}"></td> 
+					<td th:text="${book.dataP}"></td> 
+					<td th:text="${book.thumbnail}"></td> 
+					<td th:text="${book.idioma}"></td> 
+					<td th:text="${book.descricao}"></td> 
+					<td th:text="${book.media}"></td> 
 					<td>
-							<a th:href="@{/collections/{userId}/{bookId}(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-primary">Exibir</a> 
-					 		<a th:href="@{/collections/{userId}/{bookId}/edit(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-info">Editar</a> 
-							<a th:href="${'collections/'+ collection.id.userId +'/'+ collection.id.bookId +'/delete'}" class="btn btn-danger">Excluir</a>
+							<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Exibir</a> 
+					 		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar</a> 
+							<a th:href="${'books/'+ book.id+'/delete'}" class="btn btn-danger">Excluir</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		
 	</div>
+	
 </body>
 </html>

@@ -37,14 +37,14 @@ public class User implements UserDetails, Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name="nome")
+	@Column(name="nome", length=40)
 	private String nome;
 	
-	@Column(name="email")
+	@Column(name="email", length=40)
 	private String email;
 	
 	@NaturalId
-	@Column(name="login")
+	@Column(name="login", length=40)
 	private String login;
 	
 	@Column(name="password")

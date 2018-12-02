@@ -45,7 +45,7 @@ public class SwapService
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SwapTransactionException.class)
-	public void swapBooks(Swap entity)
+	public Swap swapBooks(Swap entity)
 	{		
 		User userTo = userService.findOne( entity.getUserTo().getId() ).get();
 		Book bookTo = bookService.findOne( entity.getBookTo().getId() ).get();
@@ -64,6 +64,8 @@ public class SwapService
 		
 		collectionService.save(collectionUserTo);
 		collectionService.save(collectionUserFrom);
+		
+		return save(entity);
 	}
 	
 	@Transactional(readOnly = false)

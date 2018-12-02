@@ -54,9 +54,13 @@ public class CollectionController {
 		model.addAttribute("user", user);
 		
 		List<Collection> all = collectionService.findByUser( user.getId() );
-		
+		List<Book> allBook = bookService.findByCollections(all);
+		 
 		if( !all.isEmpty() )
+		{
 			model.addAttribute("listCollection", all);
+			model.addAttribute("listBook", allBook);
+		}
 		
 		return "collection/index";
 	}
