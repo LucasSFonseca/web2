@@ -24,6 +24,20 @@ body {
     font-size:13px;
 }
 
+.row {
+   display: flex;
+   flex-flow: row wrap;
+}
+
+.row > div[class*='col-'] {
+  display: flex;
+}
+
+.card-actions
+{
+	margin-bottom: 5px;
+}
+
 ul li {
     list-style: none;
 }
@@ -1030,13 +1044,6 @@ PANELS CONFIGURATIONS
 	color: #ccd1d9;
 }
 
-/*STOCK CARD Panel*/
-.card {
-  background: white;
-  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1em;
-  height: 250px;
-}
 .stock .stock-chart {
   background: #00c5de;
 }

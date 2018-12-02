@@ -16,8 +16,44 @@
 		<h1>Meus Livros</h1>
 		<hr />
 		<a th:href="@{/collections/new}" class="btn btn-success">Novo Registro</a><br/><br/>
-		   
-		<table class="table">
+		
+		<div class="row">
+		
+				<div class="col-sm-3 mb-3" th:each="colbook : ${mapColBook}">
+					<div class="card text-center" style="width: 100%;">
+					
+					    <img class="card-img-top" style="height: 300px; width: 100%; display: block;" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
+						
+						    <div class="card-body">
+							    <h5 class="card-title" th:text="${colbook.value.titulo}"></h5>
+							    <p class="card-text" th:text="${colbook.value.descricao}"></p>
+							    <p class="card-text" th:text="${colbook.value.autor}"></p>
+						    </div>
+						    
+						    <div class="card-actions">
+						    	<a th:href="@{/books/{id}(id = ${colbook.value.id})}" class="btn btn-primary">
+						    	<span class="fa fa-eye"></span> 
+						    	</a> 
+					 			<a th:href="@{/collections/{idUser}/{idBook}/edit(idUser = ${colbook.key.user.id}, idBook = ${colbook.key.book.id})}" class="btn btn-info">
+					 			<span class="fa fa-pencil"></span> 
+					 			</a> 
+					 			<a th:attr="data-id=${colbook.key.user.id} + '/' + ${colbook.key.book.id}" data-toggle="modal" href="#myModal" class="open-RemoveCollectionDialog btn btn-danger">
+					 			<span class="fa fa-trash"></span> 
+					 			</a>
+						    </div>
+						    
+						    <div class="card-footer">
+						    	<small class="text-muted" th:text="'Adicionado em ' + ${colbook.key.addedOn}"></small>
+							</div>
+	
+					</div>
+				</div>
+				
+		</div>
+		
+
+		
+		<!-- <table class="table">
 			<thead>
 				<tr>
 					<th>ISBN</th> 
@@ -47,7 +83,7 @@
 					</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 		
 	</div>
 	

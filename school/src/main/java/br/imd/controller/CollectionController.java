@@ -1,5 +1,6 @@
 package br.imd.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -55,11 +56,19 @@ public class CollectionController {
 		
 		List<Collection> all = collectionService.findByUser( user.getId() );
 		List<Book> allBook = bookService.findByCollections(all);
-		 
+
+		HashMap<Collection, Book> mapColBook = new HashMap<Collection, Book>();
+		
 		if( !all.isEmpty() )
 		{
-			model.addAttribute("listCollection", all);
-			model.addAttribute("listBook", allBook);
+			for(int i = 0; i < all.size(); i++)
+			{
+				mapColBook.put(all.get(i), allBook.get(i));
+			}
+
+			model.addAttribute("mapColBook", mapColBook);
+			//model.addAttribute("listCollection", all);
+			//model.addAttribute("listBook", allBook);
 		}
 		
 		return "collection/index";

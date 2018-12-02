@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.imd.model.Book;
 import br.imd.model.Collection;
+import br.imd.model.WishList;
 import br.imd.repository.BookRepository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,18 @@ public class BookService {
 		List<Book> books = new ArrayList<Book>();
 		
 		for( Collection col : collections )
+		{
+			books.add( bookRepository.findById( col.getId().getBookId() ).get() );
+		}
+		
+		return books;
+	}
+	
+	public List<Book> findByWishList(List<WishList> wishlist)
+	{
+		List<Book> books = new ArrayList<Book>();
+		
+		for( WishList col : wishlist )
 		{
 			books.add( bookRepository.findById( col.getId().getBookId() ).get() );
 		}

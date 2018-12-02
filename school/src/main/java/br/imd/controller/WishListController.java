@@ -1,5 +1,6 @@
 package br.imd.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.imd.model.Book;
-import br.imd.model.Collection;
 import br.imd.model.User;
 import br.imd.model.UserBookId;
 import br.imd.model.WishList;
@@ -55,9 +55,20 @@ public class WishListController {
 		model.addAttribute("user", user);
 		
 		List<WishList> all = wishListService.findByUser( user.getId() );
+		List<Book> allBook = bookService.findByWishList(all);
+
+		HashMap<WishList, Book> mapWishBook = new HashMap<WishList, Book>();
 		
 		if( !all.isEmpty() )
-		model.addAttribute("listWishList", all);
+		{
+			for(int i = 0; i < all.size(); i++)
+			{
+				mapWishBook.put(all.get(i), allBook.get(i));
+			}
+
+			model.addAttribute("mapWishBook", mapWishBook);
+			//model.addAttribute("listWishList", all);
+		}
 		
 		return "wishList/index";
 	}
