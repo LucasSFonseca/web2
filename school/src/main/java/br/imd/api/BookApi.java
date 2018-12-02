@@ -55,7 +55,6 @@ public class BookApi {
     // Set query string.
     System.out.println("Query: [" + query + "]");
     List volumesList = books.volumes().list(query);
-    
     // Execute the query.
     Volumes volumes = volumesList.execute();
     if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
@@ -64,9 +63,13 @@ public class BookApi {
     }
     
     // Output results.
-    for (Volume volume : volumes.getItems()) {
+//    for (Volume volume : volumes.getItems()) {
       
-      Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
+    Volume volume = volumes.getItems().get(0);
+    Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
+ 
+      // ISBN
+      book.setISBN(query.split(" ")[1]);
       
       // Title.
       book.setTitulo(volumeInfo.getTitle());
@@ -101,15 +104,20 @@ public class BookApi {
       }
       
       // Description
-      if(volumeInfo.getDescription() != null) {
-        book.setDescricao(volumeInfo.getDescription());
+      String desc = volumeInfo.getDescription();
+      if(desc != null) {
+    	  if(desc.length() > 255) {
+    		  desc = desc.substring(0, 255);
+    	  }
+    	  book.setDescricao(desc);
       }
       
       // Language
       if(volumeInfo.getLanguage() != null) {
         book.setIdioma(volumeInfo.getLanguage());
       }
-    }
+//    }
+    System.out.println(">>Query: " + volumeInfo.getIndustryIdentifiers());
     return book;
   }
   
