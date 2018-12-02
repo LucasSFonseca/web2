@@ -45,31 +45,10 @@
 		<div class="form-group"> 
 			<label for="media">Média: </label>  
 			<span th:text="${book.media}"></span> 
-		</div> 
+		</div>		
 		
-		<!--
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th> 
-					<th>Email</th> 
-					<th>Registration</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="student : ${module.students}">
-					<td th:text="${student.name}"></td> 
-					<td th:text="${student.email}"></td>
-					<td th:text="${student.registration}"></td>  
-				</tr>
-			</tbody>
-		</table>
-		-->
-		
-		
-		<a th:href="@{/books}" class="btn btn-primary">Voltar para a Lista de Livros</a>
-		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar book</a>
-		<a th:href="${book.id +'/delete'}" class="btn btn-danger">Excluir book</a>
+		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar Livro</a>
+		<a th:attr="data-id=${book.id}" data-toggle="modal" href="#myModal" class="open-RemoveBookDialog btn btn-danger">Excluir Livro</a>
 		
 	</div>
 </body>

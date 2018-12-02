@@ -22,7 +22,7 @@
 				<div class="col-sm-3 mb-3" th:each="colbook : ${mapColBook}">
 					<div class="card text-center" style="width: 100%;">
 					
-					    <img class="card-img-top" style="height: 300px; width: 100%; display: block;" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
 						
 						    <div class="card-body">
 							    <h5 class="card-title" th:text="${colbook.value.titulo}"></h5>
@@ -50,40 +50,6 @@
 				</div>
 				
 		</div>
-		
-
-		
-		<!-- <table class="table">
-			<thead>
-				<tr>
-					<th>ISBN</th> 
-					<th>Titulo</th> 
-					<th>Autor</th> 
-					<th>Data de Publicação</th> 
-					<th>Thumbnail</th> 
-					<th>Idioma</th> 
-					<th>Descrição</th> 
-					<th>Média</th> 
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="book : ${listBook}">
-					<td th:text="${book.ISBN}"></td> 
-					<td th:text="${book.titulo}"></td> 
-					<td th:text="${book.autor}"></td> 
-					<td th:text="${book.dataP}"></td> 
-					<td th:text="${book.thumbnail}"></td> 
-					<td th:text="${book.idioma}"></td> 
-					<td th:text="${book.descricao}"></td> 
-					<td th:text="${book.media}"></td> 
-					<td>
-							<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Exibir</a> 
-					 		<a th:attr="data-id=${user.id} + '/' + ${book.id}" data-toggle="modal" href="#myModal" class="open-RemoveCollectionDialog btn btn-danger">Excluir</a>
-					</td>
-				</tr>
-			</tbody>
-		</table> -->
 		
 	</div>
 	

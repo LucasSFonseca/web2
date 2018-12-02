@@ -33,32 +33,12 @@
 		<div class="form-group"> 
 			<label for="dateOfSwap">DateOfSwap</label>  
 			<span th:text="${swap.dateOfSwap}"></span> 
-		</div> 
-		
-		<!--
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th> 
-					<th>Email</th> 
-					<th>Registration</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="student : ${module.students}">
-					<td th:text="${student.name}"></td> 
-					<td th:text="${student.email}"></td>
-					<td th:text="${student.registration}"></td>  
-				</tr>
-			</tbody>
-		</table>
-		-->
-		
+		</div> 		
 		
 		<a th:href="@{/swaps}" class="btn btn-primary">Voltar para a Lista de Trocas</a>
-		<a th:href="@{/swaps/{id}/edit(id = ${swap.id})}" class="btn btn-info">Editar troca</a>
-		<a th:href="${swap.id +'/delete'}" class="btn btn-danger">Excluir troca</a>
-		
+		<!--  a th:href="@{/swaps/{id}/edit(id = ${swap.id})}" class="btn btn-info">Editar troca</a>  -->
+		<!-- <a th:href="${swap.id +'/delete'}" class="btn btn-danger">Excluir troca</a> -->
+		 
 	</div>
 </body>
 </html>
