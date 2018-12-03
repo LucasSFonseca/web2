@@ -150,6 +150,43 @@
 		     $(".modal-footer #thingId").attr("href", url); 
 		});
 		
+		$(document).on("click", "#searchBook", function ()
+		{
+			// Set the api variable
+			var isbn = document.getElementById("ISBN").value;
+			
+			$.ajax({
+				  dataType: 'json',
+				  url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn,
+				  success: handleResponse
+				  // TODO: Add mensagem para caso não encontre.
+				});     
+		});
+		
+		function handleResponse( response )
+		{
+			  $.each( response.items, function( i, item ) 
+			  {				    				    
+			    var title = item.volumeInfo.title + " " + item.volumeInfo.subtitle;
+			    var authors = item.volumeInfo.authors;
+			    var publishedDate = item.volumeInfo.publishedDate;
+			    
+			    if( item.volumeInfo.imageLinks != null )  
+				    var thumbnail = item.volumeInfo.imageLinks.thumbnail;
+				    
+			   	var language = item.volumeInfo.language;
+			   	var description = item.volumeInfo.description;
+			   	
+			    // Set the book title in the div
+			    document.getElementById("titulo").value =title;
+			    document.getElementById("autor").value = authors;
+			    document.getElementById("data_publicacao").value = publishedDate;
+			    document.getElementById("thumbnail").value = thumbnail;
+			    document.getElementById("idioma").value = language;
+			    document.getElementById("descricao").value = description;
+			  });
+		}
+		
   </script>
   
 </body>
