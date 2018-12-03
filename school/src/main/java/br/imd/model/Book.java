@@ -50,10 +50,10 @@ public class Book implements Serializable {
 	@Column(name="numero_paginas")
 	private Integer numeroPaginas;
 	
-	@Column(name="titulo", length=80)
+	@Column(name="titulo")
 	private String titulo;
 	
-	@Column(name="autor", length=100)
+	@Column(name="autor")
 	private String autor;
 	
 	@Column(name="data_publicacao", length=12)
@@ -65,7 +65,7 @@ public class Book implements Serializable {
 	@Column(name="idioma", length=2)
 	private String idioma;
 	
-	@Column(name="descricao", length=150)
+	@Column(name="descricao")
 	private String descricao;
 	
 	@Column(name="media")
