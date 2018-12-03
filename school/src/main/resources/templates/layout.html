@@ -167,15 +167,30 @@
 		{
 			  $.each( response.items, function( i, item ) 
 			  {				    				    
-			    var title = item.volumeInfo.title + " " + item.volumeInfo.subtitle;
+			    var title = item.volumeInfo.title;
+			    
+			    if( item.volumeInfo.subtitle != null )
+			    	title += " " + item.volumeInfo.subtitle;
+
+			   	if( title.length > 255 )
+			   		title = title.substring(0, 252) + "...";
+			   	
 			    var authors = item.volumeInfo.authors;
+
+			   	if( authors.length > 255 )
+			   		authors = authors.substring(0, 252) + "...";
+			    
 			    var publishedDate = item.volumeInfo.publishedDate;
 			    
 			    if( item.volumeInfo.imageLinks != null )  
 				    var thumbnail = item.volumeInfo.imageLinks.thumbnail;
 				    
 			   	var language = item.volumeInfo.language;
+			   	
 			   	var description = item.volumeInfo.description;
+			   	
+			   	if( description.length > 255 )
+			   		description = description.substring(0, 252) + "...";
 			   	
 			    // Set the book title in the div
 			    document.getElementById("titulo").value =title;

@@ -56,13 +56,13 @@ public class Book implements Serializable {
 	@Column(name="autor", length=100)
 	private String autor;
 	
-	@Column(name="data_publicacao", length=80)
+	@Column(name="data_publicacao", length=12)
 	private String dataP;
 	
-	@Column(name="thumbnail", length=80)
+	@Column(name="thumbnail", length=125)
 	private String thumbnail;
 	
-	@Column(name="idioma", length=50)
+	@Column(name="idioma", length=2)
 	private String idioma;
 	
 	@Column(name="descricao", length=150)
@@ -121,8 +121,8 @@ public class Book implements Serializable {
 		return ISBN;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public Integer getNumeroPaginas() {
