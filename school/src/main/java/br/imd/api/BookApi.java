@@ -53,8 +53,8 @@ public class BookApi {
         .setGoogleClientRequestInitializer(new BooksRequestInitializer(ClientCredentials.API_KEY))
         .build();
     // Set query string.
-    System.out.println("Query: [" + query + "]");
-    List volumesList = books.volumes().list(query);
+    System.out.println("Query: [" + "isbn: " + query + "]");
+    List volumesList = books.volumes().list("isbn: " + query);
     // Execute the query.
     Volumes volumes = volumesList.execute();
     if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
@@ -69,10 +69,19 @@ public class BookApi {
     Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
  
       // ISBN
-      book.setISBN(query.split(" ")[1]);
+      book.setISBN(query);
       
       // Title.
-      book.setTitulo(volumeInfo.getTitle());
+      String title = volumeInfo.getTitle();
+      
+	  if(title.length() > 255) {
+		  title = title.substring(0, 252) + "...";
+	  }
+	  
+      book.setTitulo(title);
+      
+      // publishedDate
+      book.setDataP(volumeInfo.getPublishedDate());
       
       // Author(s).
       java.util.List<String> authors = volumeInfo.getAuthors();
@@ -84,7 +93,12 @@ public class BookApi {
             authors_str += "; ";
           }
         }
-        book.setAutor(authors_str);
+
+	  	if(authors_str.length() > 255) {
+	  		authors_str = authors_str.substring(0, 252) + "...";
+	  	}
+        
+	  	book.setAutor(authors_str);
       }
       
       // Page Count.
@@ -98,16 +112,19 @@ public class BookApi {
       }
       
       // Thumbnail
-      if(volumeInfo.getImageLinks().getThumbnail() != null) {
-    	System.out.println("========> Thumbnail: " + volumeInfo.getImageLinks().getThumbnail() );
-        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
+      if( volumeInfo.getImageLinks() != null )
+      {
+	      if(volumeInfo.getImageLinks().getThumbnail() != null) {
+	    	System.out.println("========> Thumbnail: " + volumeInfo.getImageLinks().getThumbnail() );
+	        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
+	      }
       }
       
       // Description
       String desc = volumeInfo.getDescription();
       if(desc != null) {
     	  if(desc.length() > 255) {
-    		  desc = desc.substring(0, 255);
+    		  desc = desc.substring(0, 252) + "...";
     	  }
     	  book.setDescricao(desc);
       }
