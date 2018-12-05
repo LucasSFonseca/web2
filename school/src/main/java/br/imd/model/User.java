@@ -18,6 +18,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -37,9 +40,13 @@ public class User implements UserDetails, Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	@NotNull
+	@Size(min=5, max=45)
 	@Column(name="nome", length=45)
 	private String nome;
 	
+	@NotNull
+	@Email
 	@Column(name="email", length=45)
 	private String email;
 	
@@ -47,6 +54,8 @@ public class User implements UserDetails, Serializable{
 	@Column(name="login", length=14)
 	private String login;
 	
+	@NotNull
+	@Size(min=5, max=14)
 	@Column(name="password")
 	private String password;
 
