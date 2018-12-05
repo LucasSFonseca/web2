@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import br.imd.api.BookApi;
 import br.imd.model.Book;
+import br.imd.model.User;
 import br.imd.service.BookService;
+import br.imd.service.UserService;
 
 @Controller
 @RequestMapping("/books")
@@ -35,10 +39,18 @@ public class BookController {
 
 	@Autowired
 	private BookService bookService;
-	
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping
 	public String index(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		List<Book> all = bookService.findAll();
 		model.addAttribute("listBook", all);
 		return "book/index";
@@ -50,13 +62,24 @@ public class BookController {
 			Book book = bookService.findOne(id).get();
 			model.addAttribute("book", book);
 		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		return "book/show";
 	}
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Book entityBook) {
 		// model.addAttribute("book", entityBook);
-		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
 		return "book/form";
 	}
 	
@@ -65,7 +88,7 @@ public class BookController {
 		Book book = null;
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		try {
-			Book book2 = BookApi.queryGoogleBooks(jsonFactory, "isbn: " + entity.getISBN());
+			Book book2 = BookApi.queryGoogleBooks(jsonFactory, entity.getISBN());
 			if(book2 != null) {
 				book = bookService.save(book2);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
@@ -89,6 +112,13 @@ public class BookController {
 	
 	@GetMapping("/{id}/edit")
 	public String update(Model model, @PathVariable("id") Integer id) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		try {
 			if (id != null) {
 				Book entity = bookService.findOne(id).get();

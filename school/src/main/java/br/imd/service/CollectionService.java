@@ -22,6 +22,10 @@ public class CollectionService {
 		return collectionRepository.findAll();
 	}
 
+	public List<Collection> findByUser(Integer userId) {
+		return collectionRepository.findByUser(userId);
+	}
+
 	public Optional<Collection> findOne(UserBookId id) {
 		return collectionRepository.findById(id);
 	}

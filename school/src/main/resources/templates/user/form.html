@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="clearlayout">
+	layout:decorator="loginlayout">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Novo Usuarios</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 th:if="${user.id == null}">Novo Usuário</h1>
-		<h1 th:if="${user.id != null}">Editar Usuário</h1>
-		<hr />
-		<form th:action="@{/users}" th:method="@{${user.id == null} ? 'post' : 'put'}"
-			th:object="${user}">
-			<input type="hidden" th:field="*{id}" /> 
-				<div class="form-group"> 
+	
+	<div id="login-page">
+	    <div class="container">
+	      <form class="form-login" th:action="@{/users}" th:method="@{${user.id == null} ? 'post' : 'put'}" th:object="${user}">
+		  <input type="hidden" th:field="*{id}" /> 
+		  
+		  <h2 class="form-login-heading" th:if="${user.id == null}">Novo Usuário</h2>
+		  <h2 class="form-login-heading" th:if="${user.id != null}">Editar Usuário</h2>
+          <div class="login-wrap">
+          
+		  <div class="form-group"> 
 					<label for="nome">Nome</label>  
 					<input id="nome" name="nome" type="text" class="form-control" th:field="*{nome}" placeholder="Nome" required maxlength=45/>  
 					<div th:if="${#fields.hasErrors('nome')}">
 						<div class="alert alert-danger">
-							Por favor insira um nome v�lido.
+							Por favor insira um nome válido.
 						</div>
 					</div>
 				</div> 
@@ -33,7 +36,7 @@
 					<input id="login" name="login" type="text" class="form-control" th:field="*{login}" placeholder="Login" required/>
 					<div th:if="${#fields.hasErrors('login')}">
 						<div class="alert alert-danger">
-							Por favor insira um login v�lido.
+							Por favor insira um login válido.
 						</div>
 					</div>
 				</div> 
@@ -43,7 +46,7 @@
 					<input id="password" name="password" type="password" class="form-control" th:field="*{password}" placeholder="Password" required/>  
 					<div th:if="${#fields.hasErrors('password')}">
 						<div class="alert alert-danger">
-							Por favor insira uma senha v�lida.
+							Por favor insira uma senha válida.
 						</div>
 					</div>
 				</div> 
@@ -53,14 +56,20 @@
 					<input id="email" name="email" type="text" class="form-control" th:field="*{email}" placeholder="exemplo@mail.com" required />  
 					<div th:if="${#fields.hasErrors('email')}">
 						<div class="alert alert-danger">
-							Por favor insira um email v�lido.
+							Por favor insira um email válido.
 						</div>
 					</div>
 				</div>
 
 			<button type="submit" class="btn btn-success">Salvar</button>
 			<a th:href="@{/users}" class="btn btn-default">Voltar</a>
-		</form>
+			
+          </div>
+	      </form>
+	      
+		</div>
+	</div>
+	
 	</div>
 </body>
 </html>

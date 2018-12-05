@@ -27,29 +27,10 @@
 			<span th:text="${wishList.book.id}"></span> 
 		</div>  
 		
-		<!--
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th> 
-					<th>Email</th> 
-					<th>Registration</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="student : ${module.students}">
-					<td th:text="${student.name}"></td> 
-					<td th:text="${student.email}"></td>
-					<td th:text="${student.registration}"></td>  
-				</tr>
-			</tbody>
-		</table>
-		-->
-		
-		
 		<a th:href="@{/wishLists}" class="btn btn-primary">Voltar para a Lista de Livros</a>
-		<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar book</a>
-		<a th:href="${wishList.id.bookId +'/delete'}" class="btn btn-danger">Excluir book</a>
+<!-- 	<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar book</a> -->
+		<a th:attr="data-id=${wishList.id.userId} + '/' + ${wishList.id.bookId}" data-toggle="modal" href="#myModal" class="open-RemoveWishListDialog btn btn-danger">Excluir Desejo</a>
+					 	
 		
 	</div>
 </body>

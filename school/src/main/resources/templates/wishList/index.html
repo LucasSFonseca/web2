@@ -7,36 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Lista de Desejos</title>
+    <title>Livros Desejados</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
-		<h1>Lista de Desejos</h1>
+		<h1>Livros Desejados</h1>
 		<hr />
 		<a th:href="@{/wishLists/new}" class="btn btn-success">Novo Desejo</a><br/><br/>
 		
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Data de Adição</th> 
-					<th>ID Usuario</th> 
-					<th>ID Livro</th> 
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="wishList : ${listWishList}">
-					<td th:text="${wishList.addedOn}"></td> 
-					<td th:text="${wishList.user.id}"></td> 
-					<td th:text="${wishList.book.id}"></td> 
-					<td>
-							<a th:href="@{/wishLists/{userId}/{bookId}(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-primary">Exibir</a> 
-					 		<a th:href="@{/wishLists/{userId}/{bookId}/edit(userId = ${wishList.id.userId}, bookId = ${wishList.id.bookId})}" class="btn btn-info">Editar</a> 
-							<a th:href="${'wishLists/'+ wishList.id.userId +'/' + wishList.id.bookId +'/delete'}" class="btn btn-danger">Excluir</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				<div class="row">
+		
+				<div class="col-sm-3 mb-3" th:each="wishbook : ${mapWishBook}">
+					<div class="card text-center" style="width: 100%;">
+					
+					   
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${wishbook.value.thumbnail != null}" th:src="${wishbook.value.thumbnail} + '.jpg'" alt="Capa do Livro">
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${wishbook.value.thumbnail == null}" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
+						    
+						    <div class="card-body">
+							    <h5 class="card-title" th:text="${wishbook.value.titulo}"></h5>
+							    <p class="card-text" th:text="${wishbook.value.descricao}"></p>
+							    <p class="card-text" th:text="${wishbook.value.autor}"></p>
+						    </div>
+						    
+						    <div class="card-actions">
+						    	<a th:href="@{/books/{id}(id = ${wishbook.value.id})}" class="btn btn-primary">
+						    	<span class="fa fa-eye"></span> 
+						    	</a> 
+					 			<a th:attr="data-id=${wishbook.key.user.id} + '/' + ${wishbook.key.book.id}" data-toggle="modal" href="#myModal" class="open-RemoveWishListDialog btn btn-danger">
+					 			<span class="fa fa-trash"></span> 
+					 			</a>
+						    </div>
+						    
+						    <div class="card-footer">
+						    	<small class="text-muted" th:text="'Adicionado em ' + ${wishbook.key.addedOn}"></small>
+							</div>
+	
+					</div>
+				</div>
+				
+		</div>
+		
 	</div>
 </body>
 </html>

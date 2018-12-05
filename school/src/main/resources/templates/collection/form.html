@@ -18,16 +18,11 @@
 		<form th:action="@{/collections}" th:method="@{${collection.id == null} ? 'post' : 'put'}"
 			th:object="${collection}">
 			<input type="hidden" th:field="*{id}" />
-			
-			<div class="form-group"> 
-        	<label class="control-label" for="addedOn">Date</label>
-      	 	<input class="form-control" id="addedOn" name="addedOn" placeholder="dd/MM/yyyy" type="text" th:field="*{addedOn}"/>
-      		</div>
 			 
 			 <div class="form-group" th:object="${user}">
 				 <select name="user" class="form-control">
 					 <option value="" th:disabled="disabled">Selecione o Usuario</option>
-			 		 <option th:if="${collection.id == null}" th:each="user : ${users}" th:value="${user.id}" th:text="${user.nome}"></option>
+			 		 <option th:if="${collection.id == null}" th:value="${user.id}" th:text="${user.nome}"></option>
 			 		 <option th:if="${collection.id != null}" th:value="${users.id}" th:text="${users.nome}" selected="selected" ></option>
 				</select>	
 			 </div>

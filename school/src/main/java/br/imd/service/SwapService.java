@@ -35,13 +35,17 @@ public class SwapService
 	public List<Swap> findAll() {
 		return swapRepository.findAll();
 	}
+	
+	public List<Swap> findByUser(Integer id) {
+		return swapRepository.findByUser(id);
+	}
 
 	public Optional<Swap> findOne(Integer id) {
 		return swapRepository.findById(id);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SwapTransactionException.class)
-	public void swapBooks(Swap entity)
+	public Swap swapBooks(Swap entity)
 	{		
 		User userTo = userService.findOne( entity.getUserTo().getId() ).get();
 		Book bookTo = bookService.findOne( entity.getBookTo().getId() ).get();
@@ -60,6 +64,8 @@ public class SwapService
 		
 		collectionService.save(collectionUserTo);
 		collectionService.save(collectionUserFrom);
+		
+		return save(entity);
 	}
 	
 	@Transactional(readOnly = false)

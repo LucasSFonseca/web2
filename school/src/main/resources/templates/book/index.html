@@ -16,38 +16,41 @@
 		<hr />
 		<a th:href="@{/books/new}" class="btn btn-success">Novo Livro</a><br/><br/>
 		
-		<table class="table">
-			<thead>
-				<tr>
-					<th>ISBN</th> 
-					<th>Titulo</th> 
-					<th>Autor</th> 
-					<th>Data de Publicação</th> 
-					<th>Thumbnail</th> 
-					<th>Idioma</th> 
-					<th>Descrição</th> 
-					<th>Média</th> 
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="book : ${listBook}">
-					<td th:text="${book.ISBN}"></td> 
-					<td th:text="${book.titulo}"></td> 
-					<td th:text="${book.autor}"></td> 
-					<td th:text="${book.dataP}"></td> 
-					<td th:text="${book.thumbnail}"></td> 
-					<td th:text="${book.idioma}"></td> 
-					<td th:text="${book.descricao}"></td> 
-					<td th:text="${book.media}"></td> 
-					<td>
-							<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Exibir</a> 
-					 		<a th:href="@{/books/{id}/edit(id = ${book.id})}" class="btn btn-info">Editar</a> 
-							<a th:href="${'books/'+ book.id+'/delete'}" class="btn btn-danger">Excluir</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				<div class="row">
+		
+				<div class="col-sm-3 mb-3" th:each="book : ${listBook}">
+					<div class="card text-center" style="width: 100%;">
+					
+					    
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${book.thumbnail != null}" th:src="${book.thumbnail} + '.jpg'" alt="Capa do Livro">
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${book.thumbnail == null}" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
+						    <div class="card-body">
+							    <h5 class="card-title" th:text="${book.titulo}"></h5>
+							    <p class="card-text" th:text="${book.descricao}"></p>
+							    <p class="card-text" th:text="${book.autor}"></p>
+						    </div>
+						    
+						    <div class="card-actions">
+						    	<a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">
+						    	<span class="fa fa-eye"></span> 
+						    	</a> 
+					 			<a th:href="@{/books/{idBook}/edit(idBook = ${book.id})}" class="btn btn-info">
+					 			<span class="fa fa-pencil"></span> 
+					 			</a> 
+					 			<a th:attr="data-id=${book.id}" data-toggle="modal" href="#myModal" class="open-RemoveBookDialog btn btn-danger">
+					 			<span class="fa fa-trash"></span> 
+					 			</a>
+						    </div>
+						    
+						    <div class="card-footer">
+						    	<small class="text-muted" th:text="'Inserir rodapé aqui'"></small>
+							</div>
+	
+					</div>
+				</div>
+				
+		</div>
+		
 	</div>
 </body>
 </html>

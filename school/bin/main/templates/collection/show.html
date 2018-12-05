@@ -27,28 +27,9 @@
 			<span th:text="${collection.book.id}"></span> 
 		</div> 
 		
-		<!--
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th> 
-					<th>Email</th> 
-					<th>Registration</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="student : ${module.students}">
-					<td th:text="${student.name}"></td> 
-					<td th:text="${student.email}"></td>
-					<td th:text="${student.registration}"></td>  
-				</tr>
-			</tbody>
-		</table>
-		-->
-		
 		<a th:href="@{/collections}" class="btn btn-primary">Voltar para a Lista de Livros</a>
 		<a th:href="@{/collections/{userId}/{bookId}/edit(userId = ${collection.id.userId}, bookId = ${collection.id.bookId})}" class="btn btn-info">Editar collection</a>
-		<a th:href="${collection.id.bookId +'/delete'}" class="btn btn-danger">Excluir collection</a>
+		<a th:attr="data-id=${collection.id.userId} + '/' + ${collection.id.bookId}" data-toggle="modal" href="#myModal" class="open-RemoveCollectionDialog btn btn-danger">Excluir collection</a>
 		
 	</div>
 </body>

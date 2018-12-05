@@ -39,6 +39,7 @@ public class User implements UserDetails, Serializable{
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
 	
 	@NotNull
 	@Size(min=5, max=45)

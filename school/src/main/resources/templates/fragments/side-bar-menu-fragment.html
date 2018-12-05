@@ -1,0 +1,39 @@
+<div id="sidebar" class="nav-collapse " data-th-fragment="side-bar-menu">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="profile.html"><img src="/img/indice.png" th:src="@{/img/indice.png}" class="rounded-circle" width="80"></a></p>
+          <h5 class="centered">
+          <span th:text="${user.nome}"></span> 
+          <!-- User Name -->
+          </h5>
+          <li class="mt">
+            <a href="/">
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>Livros</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/books">Acervo</a></li>
+              <li><a href="/collections">Meus Livros</a></li>
+              <li><a href="/wishLists">Livros Desejados</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>Centro de Trocas</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/swaps/new">Fazer Trocas</a></li>
+              <li><a href="/swaps">Minhas Trocas</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <!-- sidebar menu end-->
+</div>

@@ -1,11 +1,14 @@
 package br.imd.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,14 +48,40 @@ public class WishListController {
 
 	@GetMapping
 	public String index(Model model) {
-		List<WishList> all = wishListService.findAll();
-		model.addAttribute("listWishList", all);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
+		List<WishList> all = wishListService.findByUser( user.getId() );
+		List<Book> allBook = bookService.findByWishList(all);
+
+		HashMap<WishList, Book> mapWishBook = new HashMap<WishList, Book>();
+		
+		if( !all.isEmpty() )
+		{
+			for(int i = 0; i < all.size(); i++)
+			{
+				mapWishBook.put(all.get(i), allBook.get(i));
+			}
+
+			model.addAttribute("mapWishBook", mapWishBook);
+			//model.addAttribute("listWishList", all);
+		}
+		
 		return "wishList/index";
 	}
 	
 	@GetMapping("/{userId}/{bookId}")
 	public String show(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId)
 	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		if (userId != null && bookId != null) 
 		{
 			UserBookId id = new UserBookId(userId, bookId);
@@ -65,6 +94,12 @@ public class WishListController {
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute WishList entityWishList) {
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		List<User> allUsers = userService.findAll();
 		model.addAttribute("users", allUsers);
 		List<Book> allBooks = bookService.findAll();
@@ -94,6 +129,13 @@ public class WishListController {
 	
 	@GetMapping("/{userId}/{bookId}/edit")
 	public String update(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		try {
 			if (userId != null && bookId != null) 
 			{
@@ -115,6 +157,7 @@ public class WishListController {
 	
 	@PutMapping
 	public String update(@Valid @ModelAttribute WishList entity, BindingResult result, RedirectAttributes redirectAttributes) {
+		
 		WishList wishList = null;
 		try {
 			wishList = wishListService.save(entity);

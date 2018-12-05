@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.imd.model.Role;
 import br.imd.model.User;
 import br.imd.repository.UserRepository;
 
@@ -22,9 +21,17 @@ public class UserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	
+	public List<User> findAllExcept(Integer id) {
+		return userRepository.findByAllExcept(id);
+	}
 
 	public Optional<User> findOne(Integer id) {
 		return userRepository.findById(id);
+	}
+	
+	public User findByLogin(String login) {
+		return userRepository.findByLogin(login);
 	}
 	
 	@Transactional(readOnly = false)
@@ -37,6 +44,7 @@ public class UserService {
 	public void delete(User entity) {
 		userRepository.delete(entity);
 	}
-
+	
+	
 }
 	

@@ -1,11 +1,14 @@
 package br.imd.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,14 +47,42 @@ public class CollectionController {
 
 	@GetMapping
 	public String index(Model model) {
-		List<Collection> all = collectionService.findAll();
-		model.addAttribute("listCollection", all);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
+		List<Collection> all = collectionService.findByUser( user.getId() );
+		List<Book> allBook = bookService.findByCollections(all);
+
+		HashMap<Collection, Book> mapColBook = new HashMap<Collection, Book>();
+		
+		if( !all.isEmpty() )
+		{
+			for(int i = 0; i < all.size(); i++)
+			{
+				mapColBook.put(all.get(i), allBook.get(i));
+			}
+
+			model.addAttribute("mapColBook", mapColBook);
+			//model.addAttribute("listCollection", all);
+			//model.addAttribute("listBook", allBook);
+		}
+		
 		return "collection/index";
 	}
 	
 	@GetMapping("/{userId}/{bookId}")
 	public String show(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId)
 	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		if (userId != null && bookId != null) 
 		{
 			UserBookId id = new UserBookId(userId, bookId);
@@ -64,6 +95,12 @@ public class CollectionController {
 
 	@GetMapping(value = "/new")
 	public String create(Model model, @ModelAttribute Collection entityCollection) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
 		
 		//model.addAttribute("collection", entityCollection);
 		List<User> allUsers = userService.findAll();
@@ -96,6 +133,13 @@ public class CollectionController {
 	
 	@GetMapping("/{userId}/{bookId}/edit")
 	public String update(Model model, @PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName(); //get logged in username
+	    
+	    User user = userService.findByLogin(name);
+		model.addAttribute("user", user);
+		
 		try {
 			if (userId != null && bookId != null) 
 			{

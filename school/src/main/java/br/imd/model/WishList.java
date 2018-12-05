@@ -40,7 +40,7 @@ public class WishList implements Serializable  {
     @Column(name = "added_on")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date addedOn;
+    private Date addedOn = new Date();
     
     @SuppressWarnings("unused")
 	private WishList() {}

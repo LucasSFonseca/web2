@@ -50,10 +50,10 @@ public class Book implements Serializable {
 	@Column(name="numero_paginas")
 	private Integer numeroPaginas;
 	
-	@Column(name="titulo", length=45)
+	@Column(name="titulo")
 	private String titulo;
 	
-	@Column(name="autor", length=45)
+	@Column(name="autor")
 	private String autor;
 	
 	@Column(name="data_publicacao", length=12)
@@ -83,9 +83,9 @@ public class Book implements Serializable {
 	{
 	}
 	
-    public Book(String iSBN, Integer numeroPaginas, String titulo, String autor, String dataP, String thumbnail, String idioma, String descricao, float media)
+    public Book(String ISBN, Integer numeroPaginas, String titulo, String autor, String dataP, String thumbnail, String idioma, String descricao, float media)
     {
-		ISBN = iSBN;
+		this.ISBN = ISBN;
 		this.numeroPaginas = numeroPaginas;
 		this.titulo = titulo;
 		this.autor = autor;
