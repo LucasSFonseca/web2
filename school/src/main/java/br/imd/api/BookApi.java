@@ -98,11 +98,9 @@ public class BookApi {
       }
       
       // Thumbnail
-      if(volumeInfo.getImageLinks() != null) {
-	      if(volumeInfo.getImageLinks().getThumbnail() != null) {
-	    	System.out.println("========> Thumbnail: " + volumeInfo.getImageLinks().getThumbnail() );
-	        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
-	      }
+      if(volumeInfo.getImageLinks().getThumbnail() != null) {
+    	System.out.println("========> Thumbnail: " + volumeInfo.getImageLinks().getThumbnail() );
+        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
       }
       
       // Description
