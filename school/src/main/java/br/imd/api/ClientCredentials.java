@@ -31,8 +31,8 @@ package br.imd.api;
 public class ClientCredentials {
 
   /** Value of the "API key" shown under "Simple API Access". */
-  static final String API_KEY =
-      "Enter your API KEY" + ClientCredentials.class; 
+  static final String API_KEY = "AIzaSyB-SWMN23yxrkMlSJmUw_M-CgiJcGE4dss";
+
   static void errorIfNotSpecified() {
     if (API_KEY.startsWith("Enter ")) {
       System.err.println(API_KEY);

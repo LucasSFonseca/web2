@@ -52,7 +52,7 @@ public class SwapController {
 	    User user = userService.findByLogin(name);
 		model.addAttribute("user", user);
 		
-		List<Swap> all = swapService.findAll();
+		List<Swap> all = swapService.findByUser(user.getId());
 		model.addAttribute("listSwap", all);
 		return "swap/index";
 	}

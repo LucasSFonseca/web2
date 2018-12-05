@@ -63,6 +63,9 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper site-min-height">
+      
+        <div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
+		<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
         
         <div layout:fragment="content">
 		  <p>Page content goes here</p>

@@ -36,6 +36,7 @@ public class BookController {
 	private static final String MSG_SUCESS_UPDATE = "Book successfully changed.";
 	private static final String MSG_SUCESS_DELETE = "Deleted Book successfully.";
 	private static final String MSG_ERROR = "Error.";
+	private static final String MSG_EXISTS = "Livro já cadastrado.";
 
 	@Autowired
 	private BookService bookService;
@@ -99,11 +100,11 @@ public class BookController {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			//e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", MSG_EXISTS);
 		}catch (Throwable e) {
 			System.out.println("Throwable:: exception");
-			e.printStackTrace();
+			//e.printStackTrace();
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
 		
@@ -134,7 +135,7 @@ public class BookController {
 	public String update(@Valid @ModelAttribute Book entity, BindingResult result, RedirectAttributes redirectAttributes) {
 		Book book = null;
 		try {
-			book = bookService.save(entity);
+			book = bookService.update(entity);
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);

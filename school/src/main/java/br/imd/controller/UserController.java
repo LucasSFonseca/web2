@@ -77,12 +77,14 @@ public class UserController {
 			//redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
-			e.printStackTrace();
+			//e.printStackTrace();
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			return "user/form";
 		}catch (Throwable e) {
 			System.out.println("Throwable:: exception");
-			e.printStackTrace();
+			//e.printStackTrace();
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			return "user/form";
 		}
 		//return "redirect:/users/" + user.getId();
 		return "redirect:/";
