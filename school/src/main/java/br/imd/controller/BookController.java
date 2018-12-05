@@ -88,10 +88,7 @@ public class BookController {
 		Book book = null;
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 		try {
-			Book book2 = BookApi.queryGoogleBooks(jsonFactory, entity.getISBN() );
-			System.out.println("=====================================");
-			System.out.println("ISBN: " + book2.getISBN());
-			System.out.println("=====================================");
+			Book book2 = BookApi.queryGoogleBooks(jsonFactory, "isbn: " + entity.getISBN());
 			if(book2 != null) {
 				book = bookService.save(book2);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
