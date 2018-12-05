@@ -21,8 +21,9 @@
 				<div class="col-sm-3 mb-3" th:each="book : ${listBook}">
 					<div class="card text-center" style="width: 100%;">
 					
-					    <img class="card-img-top smallimg mx-auto" style="height: 75%; width: 75%; display: block;" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
-						
+					    
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${book.thumbnail != null}" th:src="${book.thumbnail} + '.jpg'" alt="Capa do Livro">
+					    <img class="card-img-top smallimg mx-auto" style="height: 75; width: 75%; display: block;" th:if="${book.thumbnail == null}" src="img/book.jpg" th:src="@{/img/book.jpg}" alt="Capa do Livro">
 						    <div class="card-body">
 							    <h5 class="card-title" th:text="${book.titulo}"></h5>
 							    <p class="card-text" th:text="${book.descricao}"></p>
