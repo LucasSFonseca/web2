@@ -98,18 +98,21 @@ public class BookApi {
       }
       
       // Thumbnail
-      if(volumeInfo.getImageLinks().getThumbnail() != null) {
-    	System.out.println("========> Thumbnail: " + volumeInfo.getImageLinks().getThumbnail() );
-        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
+      if(volumeInfo.getImageLinks() != null) {
+	      if(volumeInfo.getImageLinks().getThumbnail() != null) {
+	        book.setThumbnail(volumeInfo.getImageLinks().getThumbnail());
+	      }
+	      else { book.setThumbnail(null);}
       }
+      else { book.setThumbnail(null);}
       
       // Description
       String desc = volumeInfo.getDescription();
       if(desc != null) {
     	  if(desc.length() > 255) {
-    		  desc = desc.substring(0, 255);
+    		  desc = desc.substring(0, 252);
     	  }
-    	  book.setDescricao(desc);
+    	  book.setDescricao(desc + "...");
       }
       
       // Language

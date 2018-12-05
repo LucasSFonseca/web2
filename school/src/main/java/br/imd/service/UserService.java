@@ -9,6 +9,11 @@ import br.imd.model.User;
 import br.imd.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +41,43 @@ public class UserService {
 	@Transactional(readOnly = false)
 	public void delete(User entity) {
 		userRepository.delete(entity);
+	}
+	
+	public boolean validateLoginName(User entity) {
+		try {
+			String myDriver = "com.mysql.jdbc.Driver";
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM user WHERE user.login=" + entity.getLogin();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				System.out.println("Query não repetida");
+				return true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
+	}
+	
+	public boolean validateMail(User entity) {
+		try {
+			String myDriver = "com.mysql.jdbc.Driver";
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM user WHERE user.email=" + entity.getEmail();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
 	}
 
 }

@@ -5,10 +5,15 @@ import org.springframework.stereotype.Service;
 
 import br.imd.model.Book;
 import br.imd.model.Collection;
+import br.imd.model.User;
 import br.imd.repository.BookRepository;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +53,29 @@ public class BookService {
 	@Transactional(readOnly = false)
 	public void delete(Book entity) {
 		bookRepository.delete(entity);
+	}
+	
+	public boolean validateIsbn(Book entity) {
+		if(entity.getISBN().length() != 10 || entity.getISBN().length() != 13) {
+			System.out.println("================= Tamanho ===============");
+			return true;
+		}
+		try {
+			String myDriver = "com.mysql.jdbc.Driver";
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM book WHERE book.isbn=" + entity.getISBN();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				System.out.println("================= Query ===============");
+				return true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
 	}
 
 }

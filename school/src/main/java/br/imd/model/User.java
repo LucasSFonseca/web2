@@ -51,6 +51,8 @@ public class User implements UserDetails, Serializable{
 	private String email;
 	
 	@NaturalId
+	@NotNull
+	@Size(min=5, max=14)
 	@Column(name="login", length=14)
 	private String login;
 	

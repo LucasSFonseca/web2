@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalIdCache;
@@ -44,6 +45,7 @@ public class Book implements Serializable {
 	private List<Swap> trocasFrom = new ArrayList<Swap>(); 
 
 //	@NaturalId
+	@NotNull
 	@Column(name="ISBN", length=13)
 	private String ISBN;
 	

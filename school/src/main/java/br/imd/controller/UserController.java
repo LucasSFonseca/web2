@@ -67,7 +67,7 @@ public class UserController {
 	public String create(@Valid @ModelAttribute User entity, BindingResult result, RedirectAttributes redirectAttributes) {
 		User user = null;
 		try {
-			if(result.hasErrors()) {
+			if(result.hasErrors() || !userService.validateLoginName(entity) || !userService.validateMail(entity)) {
 				return "user/form";
 			}
 			else {

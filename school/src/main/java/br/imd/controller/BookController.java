@@ -67,9 +67,12 @@ public class BookController {
 		try {
 			Book book2 = BookApi.queryGoogleBooks(jsonFactory, "isbn: " + entity.getISBN());
 			if(book2 != null) {
-				book = bookService.save(book2);
-				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
-				return "redirect:/books/" + book.getId();
+				if(!bookService.validateIsbn(entity)){
+					System.out.println("================= Aqui ===============");
+					book = bookService.save(book2);
+					redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+					return "redirect:/books/" + book.getId();
+				}
 			}
 			else {
 				throw new Exception();
@@ -84,7 +87,7 @@ public class BookController {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 		}
 		
-		return "redirect:/books/";
+		return "redirect:/books/new";
 	}
 	
 	@GetMapping("/{id}/edit")
