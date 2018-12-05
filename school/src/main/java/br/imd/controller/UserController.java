@@ -67,8 +67,13 @@ public class UserController {
 	public String create(@Valid @ModelAttribute User entity, BindingResult result, RedirectAttributes redirectAttributes) {
 		User user = null;
 		try {
-			System.out.println("ROLES: " + entity.getRoles().size() );
-			user = userService.save(entity);
+			if(result.hasErrors()) {
+				return "user/form";
+			}
+			else {
+				System.out.println("ROLES: " + entity.getRoles().size() );
+				user = userService.save(entity);
+			}
 			//redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			System.out.println("Exception:: exception");
